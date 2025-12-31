@@ -909,10 +909,8 @@
           return new Response(JSON.stringify({ isOwner: ownerStatus }), { status: 200, headers: { 'Content-Type':'application/json' } });
         }
         if (url && url.indexOf('/api/trick-ai') !== -1 && method === 'POST'){
-          debug('AI request intercepted');
           const user = getUser();
           if (!user) {
-            debug('User not authenticated');
             
             // Send a friendly message to sign in
             const stream = new ReadableStream({
@@ -946,13 +944,9 @@
             });
           }
           
-          debug('User authenticated, processing AI request');
-          
           try {
             const body = init && init.body ? JSON.parse(init.body) : {};
             const message = body.message || '';
-            
-            debug('Message received: ' + message);
             
             // Simple response for testing
             let responseText = "I'm your trampoline trick coach! ";
@@ -965,13 +959,10 @@
               responseText += "Ask me about specific tricks like front flips, back flips, progressions, or safety tips. What would you like to know?";
             }
             
-            debug('Response prepared: ' + responseText.substring(0, 50) + '...');
-            
             // Create a simple readable stream
             const encoder = new TextEncoder();
             const stream = new ReadableStream({
               start(controller) {
-                debug('Stream started');
                 try {
                   const words = responseText.split(' ');
                   let index = 0;
@@ -984,20 +975,17 @@
                       index++;
                       setTimeout(sendWord, 30);
                     } else {
-                      debug('Stream complete');
                       controller.close();
                     }
                   };
                   
                   sendWord();
                 } catch (err) {
-                  debug('Stream error: ' + err.message);
                   controller.error(err);
                 }
               }
             });
             
-            debug('Creating response');
             return new Response(stream, {
               status: 200,
               headers: {
@@ -1007,7 +995,6 @@
             });
             
           } catch(e) {
-            debug('AI error: ' + e.message);
             return new Response(JSON.stringify({ error: e.message }), { 
               status: 500, 
               headers: {'Content-Type':'application/json'} 
