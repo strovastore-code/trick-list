@@ -1,4 +1,4 @@
-// Fake auth shim for local mirror: adds Sign In UI and intercepts fetch
+﻿// Fake auth shim for local mirror: adds Sign In UI and intercepts fetch
 (function(){
   const USER_KEY = 'tricklist_user';
   const LEARNED_KEY = 'tricklist_learned';
@@ -890,7 +890,7 @@
             // Send a friendly message to sign in
             const stream = new ReadableStream({
               start(controller) {
-                const message = "Please sign in to use Trick AI! 🎯";
+                const message = "Please sign in to use Trick AI! ðŸŽ¯";
                 const words = message.split(' ');
                 let index = 0;
                 
@@ -1232,7 +1232,7 @@
           background: rgba(34, 197, 94, 0.1);
           margin-right: 12px;
         `;
-        adminLink.innerHTML = '⚙️ Feedback Admin';
+        adminLink.innerHTML = 'âš™ï¸ Feedback Admin';
         adminLink.onmouseover = () => {
           adminLink.style.background = 'rgba(34, 197, 94, 0.2)';
           adminLink.style.borderColor = 'rgba(34, 197, 94, 0.8)';
@@ -1284,3 +1284,4 @@
   initOwnerAccount();
 
 })();
+
