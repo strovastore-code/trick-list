@@ -258,37 +258,12 @@
 
   // Simple on-page logger for debugging inside Simple Browser
   function ensureDebugPanel(){
-    // Debug panel disabled for non-owners
-    const user = getUser();
-    if (!user || !isOwner(user)) return null;
-    
-    let panel = document.getElementById('fake-auth-debug');
-    if (!panel){
-      panel = document.createElement('div');
-      panel.id = 'fake-auth-debug';
-      panel.style.cssText = 'position:fixed;top:50px;left:10px;background:rgba(0,0,0,0.8);color:#0f0;padding:10px;border:1px solid #0f0;font-family:monospace;font-size:11px;max-width:400px;max-height:300px;overflow-y:auto;z-index:999999;border-radius:4px;';
-      document.body.appendChild(panel);
-    }
-    return panel;
+    // Debug panel completely disabled
+    return null;
   }
 
   function debug(msg){
-    // Debug only for owners
-    const user = getUser();
-    if (!user || !isOwner(user)) return;
-    
-    const panel = ensureDebugPanel();
-    if (panel){
-      const line = document.createElement('div');
-      line.textContent = new Date().toLocaleTimeString() + ' - ' + msg;
-      panel.appendChild(line);
-      // Keep only last 50 lines
-      while (panel.childNodes.length > 50){
-        panel.removeChild(panel.firstChild);
-      }
-      // scroll to bottom
-      panel.scrollTop = panel.scrollHeight;
-    }
+    // Debug completely disabled
   }
 
   function positionPopup(anchor, popup){
