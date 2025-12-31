@@ -1061,6 +1061,41 @@
             return new Response(JSON.stringify({ error: e.message }), { status: 400, headers: {'Content-Type':'application/json'} });
           }
         }
+        if (url && String(url).indexOf('/api/tricks/') !== -1 && method === 'DELETE'){
+          console.log('[fake-auth] Trick DELETE request');
+          const user = getUser();
+          if (!user || !isOwner(user)) {
+            console.log('[fake-auth] Trick delete denied - not owner');
+            return new Response(JSON.stringify({ message: 'Unauthorized - Owner only' }), { status: 401, headers: {'Content-Type':'application/json'} });
+          }
+          
+          try {
+            // Extract trick ID from URL path: /api/tricks/{id}
+            const urlParts = url.split('/');
+            const id = parseInt(urlParts[urlParts.length - 1]);
+            
+            if (!id || isNaN(id)) {
+              return new Response(JSON.stringify({ error: 'Invalid ID' }), { status: 400, headers: {'Content-Type':'application/json'} });
+            }
+            
+            let tricks = JSON.parse(localStorage.getItem('tricklist_tricks') || '{}');
+            
+            // Delete from all levels
+            Object.keys(tricks).forEach(level => {
+              if (Array.isArray(tricks[level])) {
+                tricks[level] = tricks[level].filter(t => t.id !== id);
+              }
+            });
+            
+            localStorage.setItem('tricklist_tricks', JSON.stringify(tricks));
+            console.log('[fake-auth] Trick deleted successfully');
+            return new Response(JSON.stringify({ success: true }), { status: 200, headers: {'Content-Type':'application/json'} });
+          } catch(e) {
+            console.log('[fake-auth] Trick DELETE error: ' + e.message);
+            return new Response(JSON.stringify({ error: e.message }), { status: 400, headers: {'Content-Type':'application/json'} });
+          }
+        }
+        
         if (url && String(url).indexOf('/api/feedback') !== -1 && method === 'DELETE'){
           console.log('[fake-auth] Feedback DELETE request');
           const user = getUser();
