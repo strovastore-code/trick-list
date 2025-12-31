@@ -36,6 +36,17 @@
     <link rel="stylesheet" crossorigin href="assets/index-D00X5OdG.css">
   </head>
   <body>
+    <script>
+      // Handle GitHub Pages base path
+      (function() {
+        var path = window.location.pathname;
+        var base = '/trick-list/';
+        if (path.indexOf(base) === 0 && path !== base) {
+          var newPath = path.slice(base.length - 1);
+          window.history.replaceState(null, '', base + '#' + newPath);
+        }
+      })();
+    </script>
     <div id="root"></div>
   </body>
 </html>
