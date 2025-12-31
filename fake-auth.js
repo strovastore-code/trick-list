@@ -745,14 +745,37 @@
         const debugPanel = document.getElementById('fake-auth-debug');
         if (debugPanel) debugPanel.remove();
         
-        // Hide any div containing "Owner check" text - just hide it completely
+        // Add close button to any div containing "Owner check" text (for owners only)
+        const user = getUser();
+        const isOwnerUser = user && isOwner(user);
+        
         const allDivs = document.querySelectorAll('div');
         allDivs.forEach(div => {
           if (div.textContent && div.textContent.includes('Owner check')) {
-            div.style.display = 'none !important';
-            div.style.visibility = 'hidden';
-            div.style.pointerEvents = 'none';
-            div.style.opacity = '0';
+            // For non-owners, hide completely
+            if (!isOwnerUser) {
+              div.style.display = 'none !important';
+              div.style.visibility = 'hidden';
+              div.style.pointerEvents = 'none';
+              div.style.opacity = '0';
+              return;
+            }
+            
+            // For owners, add close button if not already present
+            if (!div.querySelector('.owner-debug-close')) {
+              div.style.position = 'relative';
+              div.style.padding = '15px 40px 15px 15px';
+              
+              const closeBtn = document.createElement('button');
+              closeBtn.className = 'owner-debug-close';
+              closeBtn.textContent = 'Close';
+              closeBtn.style.cssText = 'position: absolute; top: 8px; right: 8px; background: #ff6b6b; color: white; border: none; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-weight: bold; font-size: 12px; z-index: 10000;';
+              closeBtn.onclick = (e) => {
+                e.stopPropagation();
+                div.style.display = 'none';
+              };
+              div.appendChild(closeBtn);
+            }
           }
         });
       }, 500);
