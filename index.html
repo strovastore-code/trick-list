@@ -37,15 +37,12 @@
   </head>
   <body>
     <script>
-      // Handle GitHub Pages base path
-      (function() {
-        var path = window.location.pathname;
-        var base = '/trick-list/';
-        if (path.indexOf(base) === 0 && path !== base) {
-          var newPath = path.slice(base.length - 1);
-          window.history.replaceState(null, '', base + '#' + newPath);
+      // Redirect to hash-based routing for GitHub Pages
+      if (window.location.pathname === '/trick-list/' || window.location.pathname === '/trick-list') {
+        if (!window.location.hash) {
+          window.location.replace('/trick-list/#/');
         }
-      })();
+      }
     </script>
     <div id="root"></div>
   </body>
