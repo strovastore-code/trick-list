@@ -906,7 +906,6 @@
         if (url && url.indexOf('/api/auth/is-owner') !== -1){
           const user = getUser();
           const ownerStatus = isOwner(user);
-          debug('Owner check - User: ' + JSON.stringify(user) + ', isOwner: ' + ownerStatus);
           return new Response(JSON.stringify({ isOwner: ownerStatus }), { status: 200, headers: { 'Content-Type':'application/json' } });
         }
         if (url && url.indexOf('/api/trick-ai') !== -1 && method === 'POST'){
