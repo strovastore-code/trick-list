@@ -3,9 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
 
     <meta property="og:title" content="Trick List" />
     <meta property="og:description" content="Master trampoline tricks from Beginner to Elite levels." />
@@ -32,6 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <script async defer src="https://accounts.google.com/gsi/client"></script>
+    <script src="owner-config.js"></script>
     <script type="module" src="firebase-integration.js?v=20251230"></script>
     <script src="random-tracker.js?v=20251230"></script>
     <script src="fake-auth-v2.js"></script>
@@ -40,5 +38,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Disable service worker that might be interfering
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+    </script>
   </body>
 </html>
