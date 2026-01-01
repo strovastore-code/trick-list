@@ -320,24 +320,26 @@
         </div>
     </div>
     
-    <script src="fake-auth.js"></script>
+    <script src="owner-config.js"></script>
+    <script src="fake-auth-v2.js"></script>
     <script>
         async function checkAuth() {
             try {
-                const response = await fetch('/api/auth/user');
-                const user = await response.json();
-                
-                if (!response.ok || !user.email) {
+                // Get current user from localStorage
+                const userStr = localStorage.getItem('tricklist_user');
+                if (!userStr) {
                     showMessage('Please sign in first', 'error');
                     setTimeout(() => window.location.href = '/', 2000);
                     return null;
                 }
                 
-                // Check if owner
-                const ownerResponse = await fetch('/api/auth/is-owner');
-                const ownerData = await ownerResponse.json();
+                const user = JSON.parse(userStr);
                 
-                if (!ownerData.isOwner) {
+                // Check if owner using local email check
+                const OWNER_EMAIL = window.OWNER_EMAIL || 'owner@example.com';
+                const isOwner = user.email && user.email.toLowerCase() === OWNER_EMAIL.toLowerCase();
+                
+                if (!isOwner) {
                     showMessage('Owner access only', 'error');
                     setTimeout(() => window.location.href = '/', 2000);
                     return null;
@@ -353,13 +355,9 @@
         
         async function loadFeedback() {
             try {
-                const response = await fetch('/api/feedback');
-                const feedback = await response.json();
-                
-                if (!response.ok) {
-                    showMessage('Failed to load feedback', 'error');
-                    return;
-                }
+                // Load feedback from localStorage instead of API
+                const feedbackStr = localStorage.getItem('tricklist_feedback') || '[]';
+                const feedback = JSON.parse(feedbackStr);
                 
                 renderFeedback(feedback);
             } catch (e) {
@@ -421,11 +419,8 @@
         }
         
         function logout() {
-            fetch('/api/logout').then(() => {
-                window.location.href = '/';
-            }).catch(() => {
-                window.location.href = '/';
-            });
+            localStorage.removeItem('tricklist_user');
+            window.location.href = '/';
         }
         
         function goHome() {
@@ -436,17 +431,17 @@
             if (!confirm('Mark this feedback as done and delete it?')) return;
             
             try {
-                const response = await fetch('/api/feedback', {
-                    method: 'DELETE',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ index: index })
-                });
+                // Load from localStorage
+                const feedbackStr = localStorage.getItem('tricklist_feedback') || '[]';
+                const feedback = JSON.parse(feedbackStr);
                 
-                if (response.ok) {
-                    loadFeedback();
-                } else {
-                    showMessage('Failed to delete feedback', 'error');
-                }
+                // Remove the item at index
+                feedback.splice(index, 1);
+                
+                // Save back to localStorage
+                localStorage.setItem('tricklist_feedback', JSON.stringify(feedback));
+                
+                loadFeedback();
             } catch (e) {
                 showMessage('Error: ' + e.message, 'error');
             }

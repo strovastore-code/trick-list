@@ -20,9 +20,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Owner credentials (same as before)
-const OWNER_EMAIL = 'zenon.beckson.miah@gmail.com';
-const OWNER_PASSWORD = 'admin123';
+// Owner credentials (loaded from owner-config.js)
+const OWNER_EMAIL = window.OWNER_EMAIL || 'owner@example.com';
+const OWNER_PASSWORD = window.OWNER_PASSWORD || 'change-me';
 
 // Current user state
 let currentUser = null;
