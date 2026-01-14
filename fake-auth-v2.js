@@ -744,41 +744,11 @@
       });
       try{ mo.observe(document.documentElement || document.body, { childList:true, subtree:true }); }catch(e){}
       
-      // AGGRESSIVE DEBUG DIV REMOVAL - Remove "Owner check" divs
-      function removeOwnerCheckDiv() {
-        try {
-          const allDivs = document.querySelectorAll('div');
-          allDivs.forEach(div => {
-            const text = div.textContent || '';
-            if (text.includes('Owner check')) {
-              if (div.parentNode) {
-                div.parentNode.removeChild(div);
-              }
-            }
-          });
-        } catch(e) {}
-      }
-      
-      // Run immediately
-      removeOwnerCheckDiv();
-      
-      // Use MutationObserver to catch new divs being added
-      const debugObserver = new MutationObserver(() => {
-        removeOwnerCheckDiv();
-      });
-      try {
-        debugObserver.observe(document.documentElement || document.body, { 
-          childList: true, 
-          subtree: true 
-        });
-      } catch(e) {}
-      
-      // Also poll as backup
+      // Poll to keep things clean
       setInterval(()=>{ 
         removeFloatingBtn(); 
         const debugPanel = document.getElementById('fake-auth-debug');
         if (debugPanel) debugPanel.remove();
-        removeOwnerCheckDiv();
         updateLoginButtonText();
       }, 50);
     }catch(e){}
