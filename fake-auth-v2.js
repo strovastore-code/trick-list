@@ -250,14 +250,13 @@
     return popup;
   }
 
-  // Simple on-page logger for debugging inside Simple Browser
+  // Debug panel completely disabled
   function ensureDebugPanel(){
-    // Debug panel completely disabled
     return null;
   }
 
   function debug(msg){
-    // Debug completely disabled
+    // Disabled
   }
 
   function positionPopup(anchor, popup){
