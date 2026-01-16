@@ -7,7 +7,4 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener('fetch', (event) => {
-  // Let the browser handle all requests normally
-  // This SW is minimal and doesn't cache anything
-});
+// No fetch handler to avoid no-op overhead

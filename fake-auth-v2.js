@@ -2,13 +2,13 @@
 // Version: 2025-12-30-v3 - All debug messages removed
 // Suppress all console output to hide debug messages
 (function() {
-  // Disable all console methods
+  // Disable all console methods - TEMPORARILY DISABLED FOR DEBUGGING
   const noop = () => {};
-  console.log = noop;
-  console.error = noop;
-  console.warn = noop;
-  console.info = noop;
-  console.debug = noop;
+  // console.log = noop;
+  // console.error = noop;
+  // console.warn = noop;
+  // console.info = noop;
+  // console.debug = noop;
 })();
 
 (function(){
@@ -50,8 +50,74 @@
       return user;
     } catch(e){ return null }
   }
-  // Owner-only trick management UI disabled for public build
-  function addTrickManagementButtons(){ return; }
+
+  // Persist the current user with an expiration and track recent accounts
+  function setUser(u){
+    // Expire in 30 days
+    const expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000);
+    u.expiresAt = expiresAt;
+    localStorage.setItem(USER_KEY, JSON.stringify(u));
+    addToRecentAccounts(u.email);
+  }
+
+  function addToRecentAccounts(email) {
+    try {
+      const now = Date.now();
+      const thirtyDays = 30 * 24 * 60 * 60 * 1000;
+      const lastClearStr = localStorage.getItem('tricklist_recent_accounts_last_clear');
+      const lastClear = lastClearStr ? parseInt(lastClearStr) : 0;
+
+      let recent = [];
+      if (now - lastClear > thirtyDays) {
+        localStorage.setItem('tricklist_recent_accounts_last_clear', String(now));
+        localStorage.removeItem('tricklist_recent_accounts');
+      } else {
+        const recentStr = localStorage.getItem('tricklist_recent_accounts');
+        recent = recentStr ? JSON.parse(recentStr) : [];
+      }
+
+      if (email && !recent.includes(email)) {
+        recent.push(email);
+      }
+      if (recent.length > 5) {
+        recent = recent.slice(-5);
+      }
+      localStorage.setItem('tricklist_recent_accounts', JSON.stringify(recent));
+    } catch(e) {}
+  }
+
+  function clearUser(){
+    try { localStorage.removeItem(USER_KEY); } catch(e) {}
+  }
+
+  // Learned tricks persistence
+  function getLearned(){
+    try { return JSON.parse(localStorage.getItem(LEARNED_KEY) || '[]'); } catch(e){ return [] }
+  }
+  function saveLearned(list){ localStorage.setItem(LEARNED_KEY, JSON.stringify(list)); }
+
+  // Random trick history tracking (per session)
+  function getRandomHistory(){
+    try { return JSON.parse(sessionStorage.getItem(RANDOM_HISTORY_KEY) || '[]'); } catch(e){ return [] }
+  }
+  function saveRandomHistory(history){ sessionStorage.setItem(RANDOM_HISTORY_KEY, JSON.stringify(history)); }
+  function addToRandomHistory(trickId){
+    const history = getRandomHistory();
+    if (!history.includes(trickId)) {
+      history.push(trickId);
+      saveRandomHistory(history);
+    }
+  }
+  function clearRandomHistory(){ sessionStorage.removeItem(RANDOM_HISTORY_KEY); }
+
+  // Trick scores
+  function getScores(){
+    try { return JSON.parse(localStorage.getItem(SCORES_KEY) || '{}'); } catch(e){ return {} }
+  }
+  function saveScores(scores){ localStorage.setItem(SCORES_KEY, JSON.stringify(scores)); }
+  function getTotalScore(){
+    const learned = getLearned();
+    const scores = getScores();
     return learned.reduce((sum, id) => sum + (scores[id] || 0), 0);
   }
 
@@ -455,201 +521,269 @@
   // Open full-page auth modal
   function openAuthModal(){
     ensureGoogleContainer();
-    let modal = document.getElementById('fake-auth-modal');
-    if (!modal) {
-      modal = document.createElement('div');
-      modal.id = 'fake-auth-modal';
-      modal.style.position = 'fixed';
-      modal.style.top = '0';
-      modal.style.left = '0';
-      modal.style.width = '100%';
-      modal.style.height = '100%';
-      modal.style.background = 'rgba(0,0,0,0.8)';
-      modal.style.display = 'flex';
-      modal.style.alignItems = 'center';
-      modal.style.justifyContent = 'center';
-      modal.style.zIndex = '99999';
-      
-      const content = document.createElement('div');
-      content.style.background = '#0a0f1a';
-      content.style.borderRadius = '8px';
-      content.style.padding = '40px';
-      content.style.maxWidth = '400px';
-      content.style.width = '90%';
-      content.style.color = 'white';
-      content.style.border = '1px solid rgba(255,255,255,0.1)';
-      
-      let isSignUp = false;
-      
-      function renderAuthForm() {
-        content.innerHTML = '';
-        
-        const title = document.createElement('h2');
-        title.textContent = isSignUp ? 'Create Account' : 'Sign In';
-        title.style.marginTop = '0';
-        title.style.marginBottom = '24px';
-        title.style.textAlign = 'center';
-        content.appendChild(title);
-        
-        // Email input
-        const emailLabel = document.createElement('label');
-        emailLabel.textContent = 'Email:';
-        emailLabel.style.display = 'block';
-        emailLabel.style.fontSize = '12px';
-        emailLabel.style.marginBottom = '4px';
-        content.appendChild(emailLabel);
-        
-        const emailInput = document.createElement('input');
-        emailInput.type = 'email';
-        emailInput.placeholder = 'your@email.com';
-        emailInput.style.width = '100%';
-        emailInput.style.padding = '10px';
-        emailInput.style.marginBottom = '16px';
-        emailInput.style.borderRadius = '4px';
-        emailInput.style.border = '1px solid rgba(255,255,255,0.2)';
-        emailInput.style.background = '#0a0f1a';
-        emailInput.style.color = 'white';
-        emailInput.style.boxSizing = 'border-box';
-        content.appendChild(emailInput);
-        
-        // Password input
-        const passwordLabel = document.createElement('label');
-        passwordLabel.textContent = 'Password:';
-        passwordLabel.style.display = 'block';
-        passwordLabel.style.fontSize = '12px';
-        passwordLabel.style.marginBottom = '4px';
-        content.appendChild(passwordLabel);
-        
-        const passwordInput = document.createElement('input');
-        passwordInput.type = 'password';
-        passwordInput.placeholder = 'password';
-        passwordInput.style.width = '100%';
-        passwordInput.style.padding = '10px';
-        passwordInput.style.marginBottom = '8px';
-        passwordInput.style.borderRadius = '4px';
-        passwordInput.style.border = '1px solid rgba(255,255,255,0.2)';
-        passwordInput.style.background = '#0a0f1a';
-        passwordInput.style.color = 'white';
-        passwordInput.style.boxSizing = 'border-box';
-        content.appendChild(passwordInput);
-        
-        // Error message
-        const msgDiv = document.createElement('div');
-        msgDiv.style.fontSize = '12px';
-        msgDiv.style.minHeight = '16px';
-        msgDiv.style.color = '#ff8888';
-        msgDiv.style.marginBottom = '16px';
-        content.appendChild(msgDiv);
-        
-        // Submit button
-        const submitBtn = document.createElement('button');
-        submitBtn.textContent = isSignUp ? 'Create Account' : 'Sign In';
-        submitBtn.style.width = '100%';
-        submitBtn.style.padding = '10px';
-        submitBtn.style.borderRadius = '4px';
-        submitBtn.style.background = '#00f5ff';
-        submitBtn.style.color = '#000';
-        submitBtn.style.border = 'none';
-        submitBtn.style.cursor = 'pointer';
-        submitBtn.style.fontWeight = 'bold';
-        submitBtn.style.marginBottom = '16px';
-        submitBtn.onclick = function(e) {
-          e.preventDefault();
-          const email = emailInput.value.trim();
-          const password = passwordInput.value.trim();
-          
-          if (!email || !password) {
-            msgDiv.textContent = 'Please enter email and password';
-            return;
-          }
-          
-          if (isSignUp) {
-            const result = createAccount(email, password);
-            if (!result.success) {
-              msgDiv.textContent = result.error;
-              return;
-            }
-          } else {
-            const result = validateLogin(email, password);
-            if (!result.success) {
-              msgDiv.textContent = result.error;
-              return;
-            }
-          }
-          
-          const newUser = { 
-            id: 'user_' + email.replace(/[^a-z0-9]/g, ''),
-            name: email.split('@')[0],
-            email: email,
-            provider: 'email',
-            isOwner: email.toLowerCase() === OWNER_EMAIL.toLowerCase()
-          };
-          setUser(newUser);
-          debug((isSignUp ? 'Account created: ' : 'Signed in: ') + email);
-          window.location.reload();
-        };
-        content.appendChild(submitBtn);
-        
-        // Google sign-in button
-        const googleBtn = document.createElement('button');
-        googleBtn.textContent = 'Recent Sign In';
-        googleBtn.style.width = '100%';
-        googleBtn.style.padding = '10px';
-        googleBtn.style.borderRadius = '4px';
-        googleBtn.style.background = '#4285F4';
-        googleBtn.style.color = 'white';
-        googleBtn.style.border = 'none';
-        googleBtn.style.cursor = 'pointer';
-        googleBtn.style.fontWeight = 'bold';
-        googleBtn.style.marginBottom = '16px';
-        googleBtn.type = 'button';
-        googleBtn.onclick = function(e) {
-          e.preventDefault();
-          handleGoogleSignIn();
-        };
-        content.appendChild(googleBtn);
-        
-        // Toggle between sign in and sign up
-        const toggleDiv = document.createElement('div');
-        toggleDiv.style.fontSize = '12px';
-        toggleDiv.style.textAlign = 'center';
-        toggleDiv.style.borderTop = '1px solid rgba(255,255,255,0.1)';
-        toggleDiv.style.paddingTop = '16px';
-        
-        const toggleText = document.createElement('span');
-        toggleText.textContent = isSignUp ? 'Already have an account? ' : "Don't have an account? ";
-        toggleDiv.appendChild(toggleText);
-        
-        const toggleLink = document.createElement('a');
-        toggleLink.textContent = isSignUp ? 'Sign In' : 'Create Account';
-        toggleLink.style.color = '#00f5ff';
-        toggleLink.style.cursor = 'pointer';
-        toggleLink.style.textDecoration = 'underline';
-        toggleLink.onclick = function(e) {
-          e.preventDefault();
-          isSignUp = !isSignUp;
-          renderAuthForm();
-        };
-        toggleDiv.appendChild(toggleLink);
-        content.appendChild(toggleDiv);
-      }
-      
-      renderAuthForm();
-      modal.appendChild(content);
-      document.body.appendChild(modal);
-      modal.onclick = function(e) {
-        if (e.target === modal) {
-          closeAuthModal();
-        }
-      };
-    } else {
-      modal.style.display = 'flex';
+    // Prevent re-opening if already open (even before DOM append)
+    if (window.authModalOpen) return;
+    window.authModalOpen = true;
+    
+    // Remove any existing stale modal (if not marked open)
+    let oldModal = document.getElementById('fake-auth-modal');
+    if (oldModal && !window.authModalOpen) oldModal.remove();
+    
+    console.log('[AUTH] Opening modal');
+    
+    // Create a host with Shadow DOM to isolate from app CSS
+    let host = document.getElementById('fake-auth-host');
+    if (!host) {
+      host = document.createElement('div');
+      host.id = 'fake-auth-host';
+      host.className = 'fake-auth-modal-protect';
+      host.style.cssText = 'position:fixed !important;top:0 !important;left:0 !important;width:100% !important;height:100% !important;z-index:2147483647 !important;pointer-events:auto !important;all: initial !important;';
+      document.body.appendChild(host);
     }
+    const shadow = host.shadowRoot || host.attachShadow({ mode: 'open' });
+    // Add enforcer styles inside shadow
+    const styleTag = document.createElement('style');
+    styleTag.textContent = `
+      :host { all: initial !important; position: fixed !important; inset: 0 !important; z-index: 2147483647 !important; }
+      #fake-auth-modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); visibility: visible; pointer-events: auto; opacity: 1; }
+      .box { background: #0a0f1a; border-radius: 8px; padding: 40px; max-width: 400px; width: 90%; color: white; border: 1px solid rgba(255,255,255,0.1); max-height: 90vh; overflow-y: auto; box-shadow: 0 0 30px rgba(0,245,255,0.3); }
+      a, button { all: unset; cursor: pointer; }
+    `;
+    // Clear previous shadow content
+    while (shadow.firstChild) shadow.removeChild(shadow.firstChild);
+    shadow.appendChild(styleTag);
+
+    // Create overlay inside shadow
+    const overlay = document.createElement('div');
+    overlay.id = 'fake-auth-modal';
+    shadow.appendChild(overlay);
+    
+    // Create modal box inside shadow
+    const box = document.createElement('div');
+    box.className = 'box';
+    overlay.appendChild(box);
+    
+    // Store globals for restoration
+    window.authModalHost = host;
+    window.authModalShadow = shadow;
+    window.authModalOverlay = overlay;
+    window.authModalBox = box;
+    
+    let isSignUp = true;
+    
+    function buildForm() {
+      if (!box) return;
+      box.innerHTML = '';
+      
+      // Title
+      const title = document.createElement('h2');
+      title.textContent = isSignUp ? 'Create Account' : 'Sign In';
+      title.style.cssText = 'margin:0 0 24px 0;text-align:center;color:#00f5ff;font-size:24px;';
+      box.appendChild(title);
+      
+      // Email
+      const emailLbl = document.createElement('label');
+      emailLbl.textContent = 'Email:';
+      emailLbl.style.cssText = 'display:block;font-size:12px;margin-bottom:4px;color:#fff;';
+      box.appendChild(emailLbl);
+      
+      const email = document.createElement('input');
+      email.type = 'email';
+      email.placeholder = 'your@email.com';
+      email.style.cssText = 'width:100%;padding:10px;margin-bottom:16px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:#0a0f1a;color:white;box-sizing:border-box;';
+      box.appendChild(email);
+      
+      // Password
+      const passLbl = document.createElement('label');
+      passLbl.textContent = 'Password:';
+      passLbl.style.cssText = 'display:block;font-size:12px;margin-bottom:4px;color:#fff;';
+      box.appendChild(passLbl);
+      
+      const password = document.createElement('input');
+      password.type = 'password';
+      password.placeholder = 'password';
+      password.style.cssText = 'width:100%;padding:10px;margin-bottom:8px;border-radius:4px;border:1px solid rgba(255,255,255,0.2);background:#0a0f1a;color:white;box-sizing:border-box;';
+      box.appendChild(password);
+      
+      // Error message
+      const msg = document.createElement('div');
+      msg.style.cssText = 'font-size:12px;min-height:16px;color:#ff8888;margin-bottom:16px;';
+      box.appendChild(msg);
+      
+      // Submit button
+      const submit = document.createElement('button');
+      submit.textContent = isSignUp ? 'Create Account' : 'Sign In';
+      submit.style.cssText = 'width:100%;padding:10px;margin-bottom:16px;border-radius:6px;background:#00f5ff;color:#000;border:none;cursor:pointer;font-weight:bold;font-size:14px;transition:all 0.2s;display:block;box-sizing:border-box;';
+      submit.onmouseover = () => submit.style.background = '#00cccc';
+      submit.onmouseout = () => submit.style.background = '#00f5ff';
+      submit.onclick = (e) => {
+        e.preventDefault();
+        const emailVal = email.value.trim();
+        const passVal = password.value.trim();
+        
+        if (!emailVal || !passVal) {
+          msg.textContent = 'Please enter email and password';
+          return;
+        }
+        
+        let result;
+        if (isSignUp) {
+          result = createAccount(emailVal, passVal);
+        } else {
+          result = validateLogin(emailVal, passVal);
+        }
+        
+        if (!result.success) {
+          msg.textContent = result.error;
+          return;
+        }
+        
+        const newUser = {
+          id: 'user_' + emailVal.replace(/[^a-z0-9]/g, ''),
+          name: emailVal.split('@')[0],
+          email: emailVal,
+          provider: 'email',
+          isOwner: emailVal.toLowerCase() === OWNER_EMAIL.toLowerCase()
+        };
+        setUser(newUser);
+        debug((isSignUp ? 'Account created: ' : 'Signed in: ') + emailVal);
+        window.location.reload();
+      };
+      box.appendChild(submit);
+      
+      // Google button
+      const google = document.createElement('button');
+      google.textContent = 'Recent Sign In';
+      google.style.cssText = 'width:100%;padding:10px;margin-bottom:16px;border-radius:6px;background:#4285F4;color:white;border:none;cursor:pointer;font-weight:bold;font-size:14px;transition:all 0.2s;display:block;box-sizing:border-box;';
+      google.onmouseover = () => google.style.background = '#3367d6';
+      google.onmouseout = () => google.style.background = '#4285F4';
+      google.onclick = (e) => {
+        e.preventDefault();
+        // Close the auth modal before showing recent sign-ins
+        try { closeAuthModal(); } catch(e) {}
+        handleGoogleSignIn();
+      };
+      box.appendChild(google);
+      
+      // Toggle
+      const toggleDiv = document.createElement('div');
+      toggleDiv.style.cssText = 'font-size:12px;text-align:center;border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;margin-top:16px;';
+      
+      const toggleText = document.createElement('span');
+      toggleText.textContent = isSignUp ? 'Already have an account? ' : "Don't have an account? ";
+      toggleText.style.cssText = 'color:#ccc;';
+      toggleDiv.appendChild(toggleText);
+      
+      const toggleLink = document.createElement('a');
+      toggleLink.textContent = isSignUp ? 'Sign In' : 'Create Account';
+      toggleLink.style.cssText = 'color:#00f5ff;cursor:pointer;text-decoration:underline;font-weight:bold;';
+      toggleLink.onclick = (e) => {
+        e.preventDefault();
+        isSignUp = !isSignUp;
+        buildForm();
+      };
+      toggleDiv.appendChild(toggleLink);
+      box.appendChild(toggleDiv);
+    }
+    
+    buildForm();
+    // Host is already appended; overlay and box are inside shadow
+
+    // Global CSS enforcer to keep modal visible
+    try {
+      if (!document.getElementById('fake-auth-enforcer-style')) {
+        const style = document.createElement('style');
+        style.id = 'fake-auth-enforcer-style';
+        style.textContent = `
+          #fake-auth-modal { display:flex !important; visibility:visible !important; pointer-events:auto !important; opacity:1 !important; transform:none !important; filter:none !important; }
+          #fake-auth-modal .fake-auth-modal-protect { display:block !important; visibility:visible !important; pointer-events:auto !important; opacity:1 !important; transform:none !important; filter:none !important; }
+        `;
+        document.head.appendChild(style);
+      }
+    } catch(e) {}
+
+    // Keyboard shortcut: Ctrl+Shift+L opens modal
+    if (!window.__fakeAuthKeybindAttached) {
+      window.__fakeAuthKeybindAttached = true;
+      window.addEventListener('keydown', function(e){
+        try {
+          if (e.ctrlKey && e.shiftKey && String(e.key).toLowerCase() === 'l') {
+            e.preventDefault();
+            openAuthModal();
+          }
+        } catch(err) {}
+      });
+    }
+    
+    // Aggressive watcher - check every 50ms and immediately restore if missing
+    if (!window.authModalWatcher) {
+      window.authModalWatcher = setInterval(() => {
+        if (!window.authModalOpen) return; // Modal was closed
+        
+        const hostEl = document.getElementById('fake-auth-host');
+        if (!hostEl && window.authModalHost) {
+          try {
+            document.body.appendChild(window.authModalHost);
+          } catch(e) {}
+        }
+        // Enforce visibility
+        try {
+          const h = window.authModalHost;
+          const ov = window.authModalOverlay;
+          const bx = window.authModalBox;
+          if (h) { h.style.display = 'block'; h.style.visibility = 'visible'; h.style.pointerEvents = 'auto'; }
+          if (ov) { ov.style.display = 'flex'; ov.style.visibility = 'visible'; ov.style.pointerEvents = 'auto'; }
+          if (bx) { bx.style.display = 'block'; bx.style.visibility = 'visible'; bx.style.pointerEvents = 'auto'; }
+        } catch(e) {}
+      }, 50);
+    }
+
+    // Attribute-level protection: revert any display/visibility changes (host + shadow children)
+    try {
+      if (!window.authModalAttrObserver) {
+        const protect = (el, isOverlay=false) => {
+          if (!el) return null;
+          const obs = new MutationObserver(() => {
+            try {
+              const cs = getComputedStyle(el);
+              const hidden = cs.display === 'none' || cs.visibility === 'hidden' || cs.pointerEvents === 'none' || cs.opacity === '0';
+              if (hidden) {
+                if (isOverlay) { el.style.display = 'flex'; el.style.visibility = 'visible'; el.style.pointerEvents = 'auto'; el.style.opacity = '1'; }
+                else { el.style.display = 'block'; el.style.visibility = 'visible'; el.style.pointerEvents = 'auto'; el.style.opacity = '1'; }
+              }
+            } catch(e) {}
+          });
+          obs.observe(el, { attributes: true, attributeFilter: ['style', 'class'], attributeOldValue: true });
+          return obs;
+        };
+        const oHost = protect(host);
+        const oOverlay = protect(overlay, true);
+        const oBox = protect(box);
+        window.authModalAttrObserver = { oHost, oOverlay, oBox };
+      }
+    } catch(e) {}
+    
+    // Close on background click
+    overlay.onclick = (e) => {
+      if (e.target === overlay) closeAuthModal();
+    };
   }
 
   function closeAuthModal(){
-    const modal = document.getElementById('fake-auth-modal');
-    if (modal) modal.style.display = 'none';
+    window.authModalOpen = false;
+    const host = document.getElementById('fake-auth-host');
+    if (host && host.parentNode) host.parentNode.removeChild(host);
+    if (window.authModalWatcher) {
+      clearInterval(window.authModalWatcher);
+      window.authModalWatcher = null;
+    }
+    if (window.authModalAttrObserver) {
+      const { oHost, oOverlay, oBox } = window.authModalAttrObserver;
+      try { oHost && oHost.disconnect(); } catch(e) {}
+      try { oOverlay && oOverlay.disconnect(); } catch(e) {}
+      try { oBox && oBox.disconnect(); } catch(e) {}
+      window.authModalAttrObserver = null;
+    }
   }
 
   // Hidden container for Google Sign-In button
@@ -733,6 +867,9 @@
             for (const n of r.addedNodes){
               try{
                 if (!n) continue;
+                // Don't touch modal elements
+                if (n.classList && n.classList.contains('fake-auth-modal-protect')) continue;
+                if (n.id === 'fake-auth-modal') continue;
                 if (n.id === 'fake-signin-btn') { if (n.parentNode) n.parentNode.removeChild(n); continue; }
                 // also check descendants
                 if (n.querySelector){ const found = n.querySelector('#fake-signin-btn'); if (found && found.parentNode) found.parentNode.removeChild(found); }
@@ -944,15 +1081,25 @@
             const body = init && init.body ? JSON.parse(init.body) : {};
             const message = body.message || '';
             
-            // Simple response for testing
-            let responseText = "I'm your trampoline trick coach! ";
+            // AI-like responses based on keywords
+            let responseText = '';
+            const msgLower = message.toLowerCase();
             
-            if (message.toLowerCase().includes('front flip')) {
-              responseText += "For a front flip, start with good height, set your arms up, tuck tight, spot your landing, and extend to land on your feet. Always practice with a spotter first!";
-            } else if (message.toLowerCase().includes('back flip')) {
-              responseText += "For a back flip, jump straight up (not back!), look up, tuck your knees to chest, and open up when you see the mat. Use a spotter until you're confident!";
+            if (msgLower.includes('360') && msgLower.includes('after')) {
+              responseText = "After mastering a 360, great next steps include:\n\n1. **540** - Add another half rotation\n2. **360 with grab** - Add style (safety, mute, or seat grab)\n3. **Back flip** - Start working on rotation skills\n4. **Front flip** - Different rotation axis\n\nI'd recommend starting with grab variations to build control, then progress to 540 or start flips!";
+            } else if (msgLower.includes('back flip') || msgLower.includes('backflip')) {
+              responseText = "Back flip tips:\n\n**Progression:**\n1. Start with back drops to build confidence\n2. Practice setting (jumping straight up, arms up)\n3. Look for your feet at the peak\n4. Spot your landing\n\n**Safety:**\n- Always have a spotter first time\n- Don't throw your head back\n- Jump UP first, rotate second\n- Land with knees slightly bent\n\nWant details on any of these steps?";
+            } else if (msgLower.includes('front flip') || msgLower.includes('frontflip')) {
+              responseText = "Front flip progression:\n\n**Steps:**\n1. Master front drops first\n2. Practice the tuck position on ground\n3. Jump and pull knees to chest\n4. Look for the mat to spot landing\n\n**Common mistakes:**\n- Jumping forward instead of up\n- Not tucking tight enough\n- Opening too early\n\nPractice the motion into the pit or with mats first!";
+            } else if (msgLower.includes('safety') || msgLower.includes('safe')) {
+              responseText = "**Trampoline Safety Essentials:**\n\n✓ Always warm up (5-10 min)\n✓ One person at a time\n✓ Clear the area of objects\n✓ Use pads on springs\n✓ Learn progressions (don't skip steps)\n✓ Practice new tricks into pit/foam first\n✓ Have a spotter for flips\n\nWhat specific trick are you working on?";
+            } else if (msgLower.includes('grab')) {
+              responseText = "**Grab variations:**\n\n- **Safety**: Grab behind knees (easiest)\n- **Mute**: Grab opposite foot\n- **Seat/Tail**: Grab behind you\n- **Nose**: Grab in front\n\nStart with safety grabs during seat drops, then add to spins. Grabs add style and control!";
+            } else if (msgLower.match(/180|270|540|720|900/)) {
+              const degrees = msgLower.match(/\d+/)[0];
+              responseText = `**${degrees} tips:**\n\nProgression from 360:\n- Practice the spin in parts\n- Use your arms to generate rotation\n- Spot your landing earlier\n- Keep your core tight\n\nThe key is commitment and consistent practice. Start on lower bounces and work up!`;
             } else {
-              responseText += "Ask me about specific tricks like front flips, back flips, progressions, or safety tips. What would you like to know?";
+              responseText = "I can help with:\n\n- Specific tricks (back flip, 360, etc.)\n- Progressions (what to learn next)\n- Safety tips\n- Grab variations\n- Flip techniques\n\nWhat would you like to know more about?";
             }
             
             // Create a simple readable stream
@@ -1190,14 +1337,14 @@
         const text = (el.textContent||'').trim().toLowerCase();
         if ((href && (href.indexOf('/api/login')!==-1 || href.indexOf('/login')!==-1)) || text.includes('login') || text.includes('sign in') || text.includes('log in')){
           // Prevent navigation to /api/login
+          el.removeAttribute('href'); // Remove href to prevent navigation
           el.addEventListener('click', function(ev){ 
             ev.preventDefault(); 
             ev.stopPropagation(); 
-            // Trigger the Google Sign-In button instead
-            const gsiBtn = document.querySelector('#gsi-btn-container button, #gsi-btn-container div[role="button"]');
-            if (gsiBtn) gsiBtn.click();
+            // Open the auth modal directly
+            openAuthModal();
             return false;
-          });
+          }, true); // Use capture phase
           if (user) el.textContent = (user.name||user.email)+' (Sign out)'; else el.textContent = 'Sign in';
         }
       });
@@ -1218,7 +1365,7 @@
         }
       });
       
-      createStyle(); removeFloatingBtn(); renderButton(); replaceExistingSignIns(); watchAndRemoveFloating(); observeLoginButton(); hideNonOwnerTrickControls(); 
+      createStyle(); removeFloatingBtn(); renderButton(); replaceExistingSignIns(); watchAndRemoveFloating(); observeLoginButton(); hideNonOwnerTrickControls(); addTrickManagementButtons(); 
       
       // Continuously remove debug elements and check admin link
       setInterval(() => {
@@ -1271,6 +1418,7 @@
           
           // Hide trick management buttons if user is not owner
           hideNonOwnerTrickControls();
+          addTrickManagementButtons();
         } catch(e) {}
       }, 100);
     }catch(e){}
@@ -1283,20 +1431,24 @@
       const ownerEmailLower = OWNER_EMAIL ? OWNER_EMAIL.toLowerCase().trim() : '';
       const isOwnerUser = userEmailLower === ownerEmailLower;
       
-      // Keywords for trick management UI (expanded list)
+      // Be specific - only target actual trick management buttons
+      // Use more specific patterns to avoid false positives
       const mgmtKeywords = [
-        'add trick', 'add', 'edit', 'delete', 'remove', 'import', 'export', 
-        'upload', 'download', 'new trick', 'create', '+ trick', '+ add'
+        'add trick', 'new trick', 'create trick',
+        'edit trick', 'delete trick', 'remove trick',
+        'import trick', 'export trick',
+        'manage trick'
       ];
       
       // Find and hide/show trick management buttons
-      const allElements = document.querySelectorAll('button, [role="button"], a, [data-testid*="button"]');
+      const allElements = document.querySelectorAll('button, [role="button"], a, [data-testid*="button"], [data-testid*="trick"]');
       allElements.forEach(el => {
         const text = (el.textContent || '').toLowerCase().trim();
         const ariaLabel = (el.getAttribute('aria-label') || '').toLowerCase();
         const title = (el.getAttribute('title') || '').toLowerCase();
         const testId = (el.getAttribute('data-testid') || '').toLowerCase();
         
+        // Check for trick management buttons specifically
         const isManagementBtn = mgmtKeywords.some(keyword => 
           text.includes(keyword) || 
           ariaLabel.includes(keyword) || 
@@ -1307,14 +1459,14 @@
         if (isManagementBtn) {
           if (!isOwnerUser) {
             // Not owner - hide the button
-            el.style.display = 'none !important';
+            el.style.display = 'none';
             el.style.visibility = 'hidden';
             el.style.pointerEvents = 'none';
           } else {
             // Is owner - make sure button is visible
-            el.style.display = '';
-            el.style.visibility = 'visible';
-            el.style.pointerEvents = 'auto';
+            el.style.removeProperty('display');
+            el.style.removeProperty('visibility');
+            el.style.removeProperty('pointer-events');
           }
         }
       });
@@ -1323,123 +1475,717 @@
   
   // Admin link disabled for public build
   function addAdminLink(){ return; }
+
+  // Admin modal state
+  let adminModalOpen = false;
+  const API_URL = 'http://localhost:8000';
+
+  // Handle admin button clicks
+  function handleAdminButtonClick(buttonId, buttonText) {
+    const user = getUser();
+    if (!user || !isOwner(user)) {
+      alert('Unauthorized: Only owner can access admin features');
+      return;
+    }
+
+    switch(buttonId) {
+      case 'owner-add-trick-btn':
+        openAddTrickModal();
+        break;
+      case 'owner-edit-trick-btn':
+        openEditTricksModal();
+        break;
+      case 'owner-delete-trick-btn':
+        openDeleteTricksModal();
+        break;
+      case 'owner-import-trick-btn':
+        handleImportTricks();
+        break;
+      case 'owner-export-trick-btn':
+        handleExportTricks();
+        break;
+      default:
+        alert('Unknown admin action');
+    }
+  }
+
+  // Create admin modal HTML
+  function createAdminModal(title, content, footer = '') {
+    const modal = document.createElement('div');
+    modal.className = 'admin-modal-overlay';
+    modal.innerHTML = `
+      <div class="admin-modal-content">
+        <div class="admin-modal-header">
+          <h2>${title}</h2>
+          <button class="admin-modal-close">&times;</button>
+        </div>
+        <div class="admin-modal-body">
+          ${content}
+        </div>
+        ${footer ? `<div class="admin-modal-footer">${footer}</div>` : ''}
+      </div>
+    `;
+
+    // Close button handler
+    modal.querySelector('.admin-modal-close').onclick = () => {
+      modal.remove();
+      adminModalOpen = false;
+    };
+
+    // Close on background click
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.remove();
+        adminModalOpen = false;
+      }
+    };
+
+    return modal;
+  }
+
+  // Inject admin modal styles
+  function injectAdminStyles() {
+    if (document.getElementById('admin-modal-styles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'admin-modal-styles';
+    style.textContent = `
+      .admin-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        backdrop-filter: blur(4px);
+      }
+      .admin-modal-content {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        max-width: 600px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+        animation: slideUp 0.3s ease-out;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .admin-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .admin-modal-header h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+      }
+      .admin-modal-close {
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #666;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .admin-modal-close:hover {
+        color: #333;
+      }
+      .admin-modal-body {
+        padding: 20px;
+      }
+      .admin-modal-footer {
+        padding: 15px 20px;
+        border-top: 1px solid #e0e0e0;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+      .admin-form-group {
+        margin-bottom: 15px;
+      }
+      .admin-form-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+        color: #333;
+        font-size: 14px;
+      }
+      .admin-form-group input,
+      .admin-form-group textarea,
+      .admin-form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        color: #000;
+        background: white;
+      }
+      .admin-form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .admin-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .admin-btn-primary {
+        background: #3b82f6;
+        color: white;
+      }
+      .admin-btn-primary:hover {
+        background: #2563eb;
+      }
+      .admin-btn-secondary {
+        background: #e0e0e0;
+        color: #333;
+      }
+      .admin-btn-secondary:hover {
+        background: #d0d0d0;
+      }
+      .admin-btn-danger {
+        background: #ef4444;
+        color: white;
+      }
+      .admin-btn-danger:hover {
+        background: #dc2626;
+      }
+      .admin-tricks-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      .admin-trick-item {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .admin-trick-item:hover {
+        background: #f5f5f5;
+        border-color: #3b82f6;
+      }
+      .admin-trick-item-name {
+        font-weight: 600;
+        color: #333;
+      }
+      .admin-trick-item-level {
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+      }
+      .admin-loading {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+      }
+      .admin-error {
+        padding: 12px;
+        background: #fee;
+        color: #c00;
+        border: 1px solid #fcc;
+        border-radius: 6px;
+        margin-bottom: 15px;
+      }
+      .admin-success {
+        padding: 12px;
+        background: #efe;
+        color: #060;
+        border: 1px solid #cfc;
+        border-radius: 6px;
+        margin-bottom: 15px;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Add trick modal
+  function openAddTrickModal() {
+    injectAdminStyles();
+    if (adminModalOpen) return;
+    adminModalOpen = true;
+
+    const content = `
+      <div class="admin-form-group">
+        <label>Trick Name *</label>
+        <input type="text" id="trick-name" placeholder="e.g., Kickflip" required>
+      </div>
+      <div class="admin-form-group">
+        <label>Level</label>
+        <select id="trick-level">
+          <option>Beginner</option>
+          <option>Novice</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+          <option>Elite</option>
+        </select>
+      </div>
+      <div class="admin-form-group">
+        <label>Description</label>
+        <textarea id="trick-description" placeholder="Describe the trick..."></textarea>
+      </div>
+      <div class="admin-form-group">
+        <label>Tips</label>
+        <textarea id="trick-tips" placeholder="Tips for learning this trick..."></textarea>
+      </div>
+      <div class="admin-form-group">
+        <label>Difficulty Score (0-10)</label>
+        <input type="number" id="trick-score" min="0" max="10" step="0.1" value="5">
+      </div>
+    `;
+
+    const footer = `
+      <button class="admin-btn admin-btn-secondary" id="cancel-btn">Cancel</button>
+      <button class="admin-btn admin-btn-primary" id="save-btn">Add Trick</button>
+    `;
+
+    const modal = createAdminModal('Add New Trick', content, footer);
+    document.body.appendChild(modal);
+
+    modal.querySelector('#cancel-btn').onclick = () => {
+      modal.remove();
+      adminModalOpen = false;
+    };
+
+    modal.querySelector('#save-btn').onclick = async () => {
+      const name = modal.querySelector('#trick-name').value.trim();
+      if (!name) {
+        alert('Trick name is required');
+        return;
+      }
+
+      const trickData = {
+        name,
+        level: modal.querySelector('#trick-level').value,
+        description: modal.querySelector('#trick-description').value,
+        tips: modal.querySelector('#trick-tips').value,
+        score: parseFloat(modal.querySelector('#trick-score').value) || 0
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/api/tricks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(trickData)
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert(`✓ Trick "${name}" added successfully!`);
+          modal.remove();
+          adminModalOpen = false;
+        } else {
+          alert('Error: ' + (result.error || 'Failed to add trick'));
+        }
+      } catch (err) {
+        alert('Error connecting to API. Make sure admin server is running on port 3001');
+      }
+    };
+  }
+
+  // Edit tricks modal
+  function openEditTricksModal() {
+    injectAdminStyles();
+    if (adminModalOpen) return;
+    adminModalOpen = true;
+
+    const content = '<div class="admin-loading">Loading tricks...</div>';
+    const modal = createAdminModal('Edit Tricks', content);
+    document.body.appendChild(modal);
+
+    // Load tricks
+    fetch(`${API_URL}/api/tricks`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.tricks && data.tricks.length > 0) {
+          // Sort by level order
+          const levelOrder = { 'Beginner': 1, 'Novice': 2, 'Intermediate': 3, 'Advanced': 4, 'Elite': 5 };
+          data.tricks.sort((a, b) => {
+            const levelDiff = (levelOrder[a.level] || 999) - (levelOrder[b.level] || 999);
+            if (levelDiff !== 0) return levelDiff;
+            return (a.orderIndex || 0) - (b.orderIndex || 0);
+          });
+          let html = '<div class="admin-tricks-list">';
+          data.tricks.forEach(trick => {
+            html += `
+              <div class="admin-trick-item" data-id="${trick.id}">
+                <div class="admin-trick-item-name">${trick.name}</div>
+                <div class="admin-trick-item-level">${trick.level}</div>
+              </div>
+            `;
+          });
+          html += '</div>';
+
+          const body = modal.querySelector('.admin-modal-body');
+          body.innerHTML = html;
+
+          // Add click handlers to tricks
+          body.querySelectorAll('.admin-trick-item').forEach(item => {
+            item.onclick = () => openEditSingleTrickModal(data.tricks.find(t => t.id === parseInt(item.dataset.id)), modal);
+          });
+        } else {
+          modal.querySelector('.admin-modal-body').innerHTML = '<p>No tricks found</p>';
+        }
+      })
+      .catch(err => {
+        modal.querySelector('.admin-modal-body').innerHTML = '<div class="admin-error">Error loading tricks. Make sure admin server is running.</div>';
+      });
+  }
+
+  // Edit single trick
+  function openEditSingleTrickModal(trick, parentModal) {
+    const content = `
+      <div class="admin-form-group">
+        <label>Trick Name *</label>
+        <input type="text" id="trick-name" value="${trick.name}" required>
+      </div>
+      <div class="admin-form-group">
+        <label>Level</label>
+        <select id="trick-level">
+          <option ${trick.level === 'Beginner' ? 'selected' : ''}>Beginner</option>
+          <option ${trick.level === 'Novice' ? 'selected' : ''}>Novice</option>
+          <option ${trick.level === 'Intermediate' ? 'selected' : ''}>Intermediate</option>
+          <option ${trick.level === 'Advanced' ? 'selected' : ''}>Advanced</option>
+          <option ${trick.level === 'Elite' ? 'selected' : ''}>Elite</option>
+        </select>
+      </div>
+      <div class="admin-form-group">
+        <label>Description</label>
+        <textarea id="trick-description">${trick.description}</textarea>
+      </div>
+      <div class="admin-form-group">
+        <label>Tips</label>
+        <textarea id="trick-tips">${trick.tips}</textarea>
+      </div>
+      <div class="admin-form-group">
+        <label>Difficulty Score (0-10)</label>
+        <input type="number" id="trick-score" min="0" max="10" step="0.1" value="${trick.score}">
+      </div>
+    `;
+
+    const footer = `
+      <button class="admin-btn admin-btn-secondary" id="back-btn">Back</button>
+      <button class="admin-btn admin-btn-danger" id="delete-btn">Delete</button>
+      <button class="admin-btn admin-btn-primary" id="save-btn">Save Changes</button>
+    `;
+
+    const modal = createAdminModal(`Edit: ${trick.name}`, content, footer);
+    document.body.appendChild(modal);
+
+    modal.querySelector('#back-btn').onclick = () => {
+      modal.remove();
+      adminModalOpen = false;
+    };
+
+    modal.querySelector('#delete-btn').onclick = async () => {
+      if (!confirm(`Delete "${trick.name}"?`)) return;
+
+      try {
+        const response = await fetch(`${API_URL}/api/tricks/${trick.id}`, { method: 'DELETE' });
+        const result = await response.json();
+        if (result.success) {
+          alert('✓ Trick deleted successfully!');
+          modal.remove();
+          parentModal.remove();
+          adminModalOpen = false;
+        }
+      } catch (err) {
+        alert('Error deleting trick');
+      }
+    };
+
+    modal.querySelector('#save-btn').onclick = async () => {
+      const name = modal.querySelector('#trick-name').value.trim();
+      if (!name) {
+        alert('Trick name is required');
+        return;
+      }
+
+      const trickData = {
+        name,
+        level: modal.querySelector('#trick-level').value,
+        description: modal.querySelector('#trick-description').value,
+        tips: modal.querySelector('#trick-tips').value,
+        score: parseFloat(modal.querySelector('#trick-score').value) || 0
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/api/tricks/${trick.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(trickData)
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert('✓ Trick updated successfully!');
+          modal.remove();
+          parentModal.remove();
+          adminModalOpen = false;
+        }
+      } catch (err) {
+        alert('Error updating trick');
+      }
+    };
+  }
+
+  // Delete tricks modal
+  function openDeleteTricksModal() {
+    injectAdminStyles();
+    if (adminModalOpen) return;
+    adminModalOpen = true;
+
+    const content = '<div class="admin-loading">Loading tricks...</div>';
+    const modal = createAdminModal('Delete Tricks', content);
+    document.body.appendChild(modal);
+
+    fetch(`${API_URL}/api/tricks`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.tricks && data.tricks.length > 0) {
+          // Sort by level order
+          const levelOrder = { 'Beginner': 1, 'Novice': 2, 'Intermediate': 3, 'Advanced': 4, 'Elite': 5 };
+          data.tricks.sort((a, b) => {
+            const levelDiff = (levelOrder[a.level] || 999) - (levelOrder[b.level] || 999);
+            if (levelDiff !== 0) return levelDiff;
+            return (a.orderIndex || 0) - (b.orderIndex || 0);
+          });
+          let html = '<div class="admin-tricks-list">';
+          data.tricks.forEach(trick => {
+            html += `
+              <div class="admin-trick-item" style="border-color:#ef4444;" data-id="${trick.id}">
+                <div class="admin-trick-item-name">${trick.name}</div>
+                <div class="admin-trick-item-level">${trick.level}</div>
+                <button class="admin-btn admin-btn-danger" style="margin-top:8px;width:100%;" data-id="${trick.id}">Delete</button>
+              </div>
+            `;
+          });
+          html += '</div>';
+
+          const body = modal.querySelector('.admin-modal-body');
+          body.innerHTML = html;
+
+          // Add delete handlers
+          body.querySelectorAll('.admin-btn-danger').forEach(btn => {
+            btn.onclick = async (e) => {
+              e.stopPropagation();
+              const id = parseInt(btn.dataset.id);
+              const trickName = data.tricks.find(t => t.id === id).name;
+              if (!confirm(`Delete "${trickName}"?`)) return;
+
+              try {
+                const response = await fetch(`${API_URL}/api/tricks/${id}`, { method: 'DELETE' });
+                const result = await response.json();
+                if (result.success) {
+                  btn.closest('.admin-trick-item').remove();
+                  alert('✓ Trick deleted!');
+                }
+              } catch (err) {
+                alert('Error deleting trick');
+              }
+            };
+          });
+        }
+      })
+      .catch(err => {
+        modal.querySelector('.admin-modal-body').innerHTML = '<div class="admin-error">Error loading tricks</div>';
+      });
+  }
+
+  // Import tricks from file
+  function handleImportTricks() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const tricks = JSON.parse(event.target.result);
+          if (!Array.isArray(tricks)) {
+            alert('Invalid format: JSON must be an array of tricks');
+            return;
+          }
+
+          const response = await fetch(`${API_URL}/api/tricks/import`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tricks })
+          });
+
+          const result = await response.json();
+          if (result.success) {
+            alert(`✓ Successfully imported ${result.imported} trick(s)!`);
+          }
+        } catch(err) {
+          alert('Error: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
+  // Export tricks to file
+  function handleExportTricks() {
+    fetch(`${API_URL}/api/tricks/export`)
+      .then(res => res.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `tricks-${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+        alert('✓ Export complete!');
+      })
+      .catch(err => {
+        alert('Error exporting tricks. Make sure admin server is running.');
+      });
+  }
   
   function addTrickManagementButtons(){
     try {
+      console.log('[addTrickManagementButtons] Called');
       const user = getUser();
-      if (!user || !user.email) return;
+      console.log('[addTrickManagementButtons] User:', user);
+      if (!user || !user.email) {
+        console.log('[addTrickManagementButtons] No user or email, exiting');
+        return;
+      }
       
       const userEmailLower = user.email.toLowerCase().trim();
       const ownerEmailLower = (OWNER_EMAIL || '').toLowerCase().trim();
+      console.log('[addTrickManagementButtons] User email:', userEmailLower);
+      console.log('[addTrickManagementButtons] Owner email:', ownerEmailLower);
       
       // Only create buttons if user IS the owner
-      if (userEmailLower !== ownerEmailLower) return;
+      if (userEmailLower !== ownerEmailLower) {
+        console.log('[addTrickManagementButtons] User is NOT owner, exiting');
+        return;
+      }
+      console.log('[addTrickManagementButtons] User IS owner, continuing...');
       
-      // Wait for header to be ready
-      setTimeout(() => {
-        // Double-check ownership
-        const currentUser = getUser();
-        if (!currentUser || !currentUser.email) return;
-        const currentUserEmailLower = currentUser.email.toLowerCase().trim();
-        if (currentUserEmailLower !== ownerEmailLower) return;
+      // Find header - try multiple selectors
+      let header = document.querySelector('header');
+      console.log('[addTrickManagementButtons] header element:', header);
+      if (!header) header = document.querySelector('[role="banner"]');
+      console.log('[addTrickManagementButtons] [role="banner"] element:', header);
+      if (!header) header = document.querySelector('nav');
+      console.log('[addTrickManagementButtons] nav element:', header);
+      if (!header) {
+        // Try to find the parent of the login button
+        const loginBtn = document.querySelector('[data-testid="button-login"]');
+        console.log('[addTrickManagementButtons] login button:', loginBtn);
+        if (loginBtn) header = loginBtn.closest('header, nav, div[class*="header"], div[class*="nav"]');
+        console.log('[addTrickManagementButtons] header from login btn:', header);
+      }
+      if (!header) {
+        console.log('[addTrickManagementButtons] No header found, exiting');
+        return;
+      }
+      console.log('[addTrickManagementButtons] Using header:', header);
+      
+      // Define trick management buttons
+      const buttons = [
+        { id: 'owner-add-trick-btn', text: '+ Add Trick', color: '#3b82f6' },
+        { id: 'owner-edit-trick-btn', text: 'Edit Tricks', color: '#f59e0b' },
+        { id: 'owner-delete-trick-btn', text: 'Delete Tricks', color: '#ef4444' },
+        { id: 'owner-import-trick-btn', text: 'Import', color: '#10b981' },
+        { id: 'owner-export-trick-btn', text: 'Export', color: '#8b5cf6' }
+      ];
+      
+      // Create and add each button
+      console.log('[addTrickManagementButtons] Creating buttons...');
+      buttons.forEach(btnConfig => {
+        // Check if button already exists
+        const existing = document.getElementById(btnConfig.id);
+        if (existing) {
+          console.log('[addTrickManagementButtons] Button already exists:', btnConfig.id);
+          return;
+        }
+        console.log('[addTrickManagementButtons] Creating button:', btnConfig.id);
         
-        // Find header
-        const header = document.querySelector('header, nav, [role="navigation"], [class*="header"], [class*="nav"]');
-        if (!header) return;
-        
-        // Define trick management buttons
-        const buttons = [
-          { id: 'add-trick-btn', text: '+ Add Trick', color: '#3b82f6' },
-          { id: 'edit-trick-btn', text: 'Edit Tricks', color: '#f59e0b' },
-          { id: 'delete-trick-btn', text: 'Delete Tricks', color: '#ef4444' },
-          { id: 'import-trick-btn', text: 'Import', color: '#10b981' },
-          { id: 'export-trick-btn', text: 'Export', color: '#8b5cf6' }
-        ];
-        
-        // Create and add each button
-        buttons.forEach(btnConfig => {
-          // Check if button already exists
-          if (document.getElementById(btnConfig.id)) return;
-          
-          const btn = document.createElement('button');
-          btn.id = btnConfig.id;
-          btn.textContent = btnConfig.text;
-          btn.style.cssText = `
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border: 1px solid rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.5);
-            border-radius: 6px;
-            color: ${btnConfig.color};
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.1);
-            margin-right: 8px;
-          `;
-          
-          // Hover effects
-          btn.onmouseover = () => {
-            btn.style.background = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.2)`;
-            btn.style.borderColor = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.8)`;
-          };
-          btn.onmouseout = () => {
-            btn.style.background = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.1)`;
-            btn.style.borderColor = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.5)`;
-          };
-          
-          // Click handlers
-          btn.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            alert(`${btnConfig.text} feature - Coming soon! Admin only.`);
-          };
-          
-          // Insert before login button if possible
-          const loginBtn = header.querySelector('a[href*="/api/login"], [data-testid*="login"]') || 
-                          Array.from(header.querySelectorAll('button, a')).find(el => el.textContent && el.textContent.toLowerCase().includes('login'));
-          if (loginBtn && loginBtn.parentNode) {
-            loginBtn.parentNode.insertBefore(btn, loginBtn);
-          } else {
-            header.appendChild(btn);
-          }
-        });
-      }, 500);
-    } catch(e) { }
-  }
-          text-decoration: none;
+        const btn = document.createElement('button');
+        btn.id = btnConfig.id;
+        btn.className = 'owner-trick-mgmt-btn';
+        btn.textContent = btnConfig.text;
+        btn.style.cssText = `
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 14px;
+          border: 1px solid rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.5);
+          border-radius: 6px;
+          color: ${btnConfig.color};
+          font-size: 13px;
+          font-weight: 500;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: rgba(34, 197, 94, 0.1);
-          margin-right: 12px;
+          background: rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.1);
+          margin-right: 8px;
         `;
-        adminLink.textContent = 'Feedback Admin';
         
-        adminLink.onmouseover = () => {
-          adminLink.style.background = 'rgba(34, 197, 94, 0.2)';
-          adminLink.style.borderColor = 'rgba(34, 197, 94, 0.8)';
+        // Hover effects
+        btn.onmouseover = () => {
+          btn.style.background = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.2)`;
+          btn.style.borderColor = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.8)`;
         };
-        adminLink.onmouseout = () => {
-          adminLink.style.background = 'rgba(34, 197, 94, 0.1)';
-          adminLink.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+        btn.onmouseout = () => {
+          btn.style.background = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.1)`;
+          btn.style.borderColor = `rgba(${parseInt(btnConfig.color.slice(1,3), 16)}, ${parseInt(btnConfig.color.slice(3,5), 16)}, ${parseInt(btnConfig.color.slice(5,7), 16)}, 0.5)`;
         };
         
-        // Insert before login button if possible
-        const loginBtn = header.querySelector('a[href*="/api/login"], [data-testid*="login"]') || 
-                        Array.from(header.querySelectorAll('button, a')).find(el => el.textContent && el.textContent.toLowerCase().includes('login'));
-        if (loginBtn) {
-          loginBtn.parentNode.insertBefore(adminLink, loginBtn);
+        // Click handlers
+        btn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          handleAdminButtonClick(btnConfig.id, btnConfig.text);
+        };
+        
+        // Insert before login button if possible, otherwise append
+        const loginBtn = header.querySelector('[data-testid="button-login"]') || 
+                        header.querySelector('button, a');
+        console.log('[addTrickManagementButtons] Login button for insertion:', loginBtn);
+        if (loginBtn && loginBtn.parentNode === header) {
+          console.log('[addTrickManagementButtons] Inserting before login button');
+          header.insertBefore(btn, loginBtn);
         } else {
-          buttonContainer.appendChild(adminLink);
+          console.log('[addTrickManagementButtons] Appending to header');
+          header.appendChild(btn);
         }
-      }, 500);
+        console.log('[addTrickManagementButtons] Button added:', btnConfig.id);
+      });
+      console.log('[addTrickManagementButtons] All buttons created successfully');
     } catch(e) {
-      // On any error, remove the link to be safe
-      if (existingLink && existingLink.parentNode) {
-        existingLink.parentNode.removeChild(existingLink);
-      }
+      console.error('[addTrickManagementButtons] Error:', e);
     }
   }
   
@@ -1465,8 +2211,62 @@
     getUser, setUser, clearUser, getLearned, saveLearned, getScores, saveScores, getTotalScore
   };
   
+  // Expose openAuthModal globally for the React app
+  window.openAuthModal = openAuthModal;
+  
   // Initialize owner account on load
   initOwnerAccount();
+
+  // Wait for React to render the header, then add trick management buttons
+  function waitForHeaderAndAddButtons() {
+    const checkHeader = () => {
+      const header = document.querySelector('header');
+      const loginBtn = document.querySelector('[data-testid="button-login"], [data-testid="button-logout"]');
+      
+      if (header || loginBtn) {
+        console.log('[waitForHeaderAndAddButtons] Header found, adding buttons...');
+        // Wait a tiny bit for React to finish rendering
+        setTimeout(() => {
+          addTrickManagementButtons();
+        }, 100);
+        return true;
+      }
+      return false;
+    };
+
+    // Try immediately
+    if (checkHeader()) return;
+
+    // If not found, use MutationObserver to watch for it
+    console.log('[waitForHeaderAndAddButtons] Header not found yet, watching DOM...');
+    const observer = new MutationObserver((mutations) => {
+      if (checkHeader()) {
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    // Also check periodically as a fallback
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (checkHeader() || attempts > 50) {
+        clearInterval(interval);
+        observer.disconnect();
+      }
+    }, 100);
+  }
+
+  // Run after DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForHeaderAndAddButtons);
+  } else {
+    waitForHeaderAndAddButtons();
+  }
 
 })();
 

@@ -1,1 +1,1064 @@
-[{"id":76,"name":"Barani","level":"Advanced","description":"A front flip with a half twist.","tips":"Initiate the front flip first, then twist late. Spot the landing.","orderIndex":0,"score":4.5},{"id":39,"name":"450 Spin","level":"Novice","description":"A 450-degree rotation (1.25 turns) in the air.","tips":"Keep body tight and spot landing early.","orderIndex":0,"score":2.5},{"id":6,"name":"A's & I's","level":"Beginner","description":"Alternating between A shape (arms/legs out) and I shape (straight body).","tips":"Focus on crisp transitions between shapes at the peak.","orderIndex":0,"score":0.8},{"id":72,"name":"Layout Back","level":"Intermediate","description":"A back flip with a layedout possition","tips":"Keep it relaxed but maintain spatial awareness.","orderIndex":0,"score":4},{"id":86,"name":"Double Back","level":"Elite","description":"Two complete backward rotations in one jump.","tips":"Requires significant height. Tuck very tight and hold longer than you think.","orderIndex":0,"score":7.5},{"id":40,"name":"540 Spin","level":"Novice","description":"A 540-degree rotation (1.5 turns) in the air.","tips":"Strong arm pull and core engagement for the extra rotation.","orderIndex":1,"score":3},{"id":96,"name":"Tuck jump","level":"Beginner","description":"Tuck jump","tips":"Grab knees","orderIndex":1,"score":0.4},{"id":87,"name":"Fliffus","level":"Elite","description":"Double front flip with a half twist.","tips":"Advanced spatial awareness required. Twist usually happens in the second flip.","orderIndex":1,"score":7.5},{"id":77,"name":"Cody","level":"Advanced","description":"A back flip performed from a front drop landing.","tips":"Snap legs down hard from the front drop to generate rotation.","orderIndex":1,"score":4.5},{"id":71,"name":"Layout Front","level":"Intermediate","description":"A front flip performed with an open, straight body position.","tips":"Wait until the peak to rotate and stay hollow.","orderIndex":1,"score":4},{"id":78,"name":"Ball Out","level":"Advanced","description":"A front flip performed from a back drop landing.","tips":"Drive knees over head immediately upon rebounding from back.","orderIndex":2,"score":4.5},{"id":97,"name":"Backflip 180","level":"Intermediate","description":"backflip with 180","tips":"...","orderIndex":2,"score":3.8},{"id":41,"name":"Oppo 450","level":"Novice","description":"A 450-degree rotation in the opposite direction.","tips":"Practice both directions for balance.","orderIndex":2,"score":2.5},{"id":88,"name":"Triffus","level":"Elite","description":"Triple front flip with a half twist.","tips":"Expert level only. Requires immense height and rotational speed.","orderIndex":2,"score":9.5},{"id":2,"name":"Star Jump","level":"Beginner","description":"Legs and arms spread wide in a star shape at the peak of the jump.","tips":"Keep limbs straight and spread evenly. Toes and fingers pointed.","orderIndex":2,"score":0.4},{"id":103,"name":"Kaboom","level":"Intermediate","description":"…","tips":"…","orderIndex":3,"score":3},{"id":79,"name":"Full Twist Flip","level":"Advanced","description":"A back flip with a full 360-degree rotation.","tips":"Wrap arms tight to chest to increase spin speed.","orderIndex":3,"score":4.5},{"id":3,"name":"Pike Jump","level":"Beginner","description":"Legs straight out in front, parallel to the mat, touching toes.","tips":"Keep your legs locked and reach for your toes at the apex.","orderIndex":3,"score":0.5},{"id":89,"name":"Full Out","level":"Elite","description":"Double back flip with a full twist in the second flip.","tips":"Tuck for the first flip, then open and twist for the second.","orderIndex":3,"score":8},{"id":42,"name":"Oppo 540","level":"Novice","description":"A 540-degree rotation in the opposite direction.","tips":"Maintain body tension throughout.","orderIndex":3,"score":3},{"id":90,"name":"Miller","level":"Elite","description":"A triple twisting double backflip.","tips":"Extremely high difficulty. Maintain tight core for maximum spin.","orderIndex":4,"score":8.5},{"id":80,"name":"Arabian","level":"Advanced","description":"A half twist into a back flip (visually a front flip from a back set).","tips":"Twist early and see the bed as you go into the flip.","orderIndex":4,"score":4.5},{"id":43,"name":"Seatbelt Grab","level":"Novice","description":"Reaching across body to grab opposite side like a seatbelt.","tips":"Must be controlled jump grab, no off-axis.","orderIndex":4,"score":1},{"id":104,"name":"Zach","level":"Intermediate","description":"…","tips":"…","orderIndex":4,"score":3},{"id":5,"name":"Straddle Jump","level":"Beginner","description":"Legs spread wide to the sides, touching toes.","tips":"Keep legs straight and toes pointed. Try to get legs parallel to the mat.","orderIndex":4,"score":0.5},{"id":105,"name":"Corkscrew","level":"Intermediate","description":"…","tips":"…","orderIndex":5,"score":3},{"id":44,"name":"Double Seatbelt","level":"Novice","description":"Both hands reaching across body in seatbelt position.","tips":"Keep balance centered during the grab.","orderIndex":5,"score":1.2},{"id":7,"name":"90 Spin","level":"Beginner","description":"A 90-degree rotation in the air, landing facing sideways.","tips":"Turn your shoulders slightly and spot where you want to land.","orderIndex":5,"score":1},{"id":91,"name":"Quad Back","level":"Elite","description":"Four complete backward rotations.","tips":"Bordering on impossible. Requires world-class height.","orderIndex":5,"score":10},{"id":81,"name":"Side Flip","level":"Advanced","description":"Rotation around the frontal axis.","tips":"Throw your leading arm down and stay tucked sideways.","orderIndex":5,"score":4.5},{"id":92,"name":"Full In Back Out","level":"Elite","description":"Double back flip with a full twist in the first flip.","tips":"Twist hard and early, then hold the tuck for the second flip.","orderIndex":6,"score":8},{"id":8,"name":"180 Spin","level":"Beginner","description":"A 180-degree rotation in the air landing facing the opposite direction.","tips":"Turn your shoulders and look where you want to land.","orderIndex":6,"score":1.6},{"id":45,"name":"Nose Grab","level":"Novice","description":"Grabbing the front/nose of your body position in the air.","tips":"Reach forward and grab at the peak.","orderIndex":6,"score":1},{"id":106,"name":"Layout backflip","level":"Intermediate","description":"…","tips":"…","orderIndex":6,"score":4.1},{"id":82,"name":"Kaboom","level":"Advanced","description":"A flip generated by a delayed leg snap after landing on the back.","tips":"Wait for the bounce to start before snapping your heels.","orderIndex":6,"score":4.2},{"id":107,"name":"Frountflip 180","level":"Intermediate","description":"…","tips":"…","orderIndex":7,"score":3.7},{"id":46,"name":"Double Nose Grab","level":"Novice","description":"Both hands grabbing forward in nose position.","tips":"Maintain control and height.","orderIndex":7,"score":1.2},{"id":93,"name":"Double Cody","level":"Elite","description":"Two back flips from a single front drop landing.","tips":"Massive leg power required to generate double rotation from the bed.","orderIndex":7,"score":8.2},{"id":83,"name":"Rudolph (Rudy)","level":"Advanced","description":"A front flip with 1.5 twists.","tips":"Maintain a tight layout or slight pike to facilitate the extra half twist.","orderIndex":7,"score":4.5},{"id":9,"name":"270 Spin","level":"Beginner","description":"A 270-degree rotation in the air.","tips":"Commit to the turn and keep your body tight throughout.","orderIndex":7,"score":1.6},{"id":10,"name":"360 Spin","level":"Beginner","description":"A complete 360-degree rotation in the air while maintaining a straight body.","tips":"Keep your body tight like a pencil to spin faster.","orderIndex":8,"score":2},{"id":47,"name":"Bum to Stomach","level":"Novice","description":"Transitioning from bum drop directly to stomach drop.","tips":"Use the bounce to rotate forward.","orderIndex":8,"score":2},{"id":108,"name":"Misty 5","level":"Intermediate","description":"…","tips":"…","orderIndex":8,"score":3},{"id":84,"name":"Randolph (Randy)","level":"Advanced","description":"A front flip with 2.5 twists.","tips":"Incredible core strength needed to maintain rotation speed.","orderIndex":8,"score":4.5},{"id":94,"name":"Triple Back","level":"Elite","description":"Three complete backward rotations in one jump.","tips":"Extremely dangerous. Elite training and massive airtime required.","orderIndex":8,"score":9.5},{"id":11,"name":"Oppo 90","level":"Beginner","description":"A 90-degree rotation in the opposite direction.","tips":"Practice spinning both ways for balance and control.","orderIndex":9,"score":1.3},{"id":109,"name":"Backflip 180","level":"Intermediate","description":"…","tips":"…","orderIndex":9,"score":3.7},{"id":48,"name":"Stomach to Bum","level":"Novice","description":"Transitioning from stomach drop directly to bum drop.","tips":"Push up and rotate backward.","orderIndex":9,"score":2},{"id":85,"name":"Double Front Flip","level":"Advanced","description":"Two complete forward rotations in the air.","tips":"Tuck extremely tight and keep eyes open for the second rotation.","orderIndex":9,"score":4.5},{"id":95,"name":"Adolph","level":"Elite","description":"A front flip with 3.5 twists.","tips":"The peak of twisting difficulty. Perfect body alignment is mandatory.","orderIndex":9,"score":8.8},{"id":110,"name":"Frount full","level":"Intermediate","description":"…","tips":"…","orderIndex":10,"score":3.9},{"id":49,"name":"Back to Stomach","level":"Novice","description":"Transitioning from back drop directly to stomach drop.","tips":"Roll through the rotation smoothly.","orderIndex":10,"score":2.1},{"id":1,"name":"Stop Bounce","level":"Advanced","description":"Safely killing the bounce by absorbing energy through bent knees.","tips":"The most important safety skill. Bend knees on landing to absorb.","orderIndex":10,"score":0.3},{"id":12,"name":"Oppo 180","level":"Beginner","description":"A 180-degree rotation in the opposite direction.","tips":"Spot your landing and keep core engaged.","orderIndex":10,"score":1.3},{"id":13,"name":"Oppo 270","level":"Beginner","description":"A 270-degree rotation in the opposite direction.","tips":"Maintain body tension throughout the spin.","orderIndex":11,"score":1.6},{"id":99,"name":"540 swivel hip","level":"Advanced","description":"540 swivel hip","tips":"fsdgfsd","orderIndex":11,"score":5},{"id":50,"name":"Stomach to Back","level":"Novice","description":"Transitioning from stomach drop directly to back drop.","tips":"Push and rotate backward to back.","orderIndex":11,"score":2.1},{"id":111,"name":"Back full","level":"Intermediate","description":"…","tips":"…","orderIndex":11,"score":3.9},{"id":112,"name":"Cork 7","level":"Intermediate","description":"…","tips":"…","orderIndex":12,"score":3},{"id":100,"name":"Barani to Front Flip","level":"Advanced","description":"Barani immediately into front flip.","tips":"Maintain momentum through both.","orderIndex":12,"score":6.8},{"id":51,"name":"Baby Cradle","level":"Novice","description":"Partial cradle with controlled rotation from back to back.","tips":"Partial control, building to full cradle.","orderIndex":12,"score":2.6},{"id":14,"name":"Oppo 360","level":"Beginner","description":"A complete 360-degree rotation in the opposite direction.","tips":"Keep arms tight and core engaged for faster rotation.","orderIndex":12,"score":2},{"id":15,"name":"Safety Grab","level":"Beginner","description":"Grabbing the bed with both hands while in the air.","tips":"Must be jump grabs, not off-axis or rushed.","orderIndex":13,"score":0.7},{"id":52,"name":"Cradle","level":"Novice","description":"Full back drop to half twist to back drop facing opposite direction.","tips":"Clean full extension through the twist.","orderIndex":13,"score":2.6},{"id":113,"name":"Backflip 540","level":"Intermediate","description":"…","tips":"…","orderIndex":13,"score":3.7},{"id":101,"name":"Frontflip 720","level":"Advanced","description":"…","tips":"…","orderIndex":13,"score":6},{"id":102,"name":"Backflip 720","level":"Advanced","description":".","tips":".","orderIndex":14,"score":6},{"id":114,"name":"Rudy (front flip 540)","level":"Intermediate","description":"…","tips":"…","orderIndex":14,"score":3.7},{"id":53,"name":"Swivel Hips to Seat Roller","level":"Novice","description":"Swivel hips flowing directly into a seat roller.","tips":"Smooth transition, not rushed.","orderIndex":14,"score":2},{"id":16,"name":"Double Safety","level":"Beginner","description":"Two handed grab of the trampoline bed during a jump.","tips":"Control your height and grab timing.","orderIndex":14,"score":0.8},{"id":115,"name":"Sideflip","level":"Intermediate","description":"…","tips":"…","orderIndex":15,"score":3.7},{"id":17,"name":"Japan Grab","level":"Beginner","description":"Grabbing the outside of your foot behind your body.","tips":"Reach behind and grab firmly at the peak.","orderIndex":15,"score":0.8},{"id":54,"name":"Swivel Hips to Baby Cradle to Cradle","level":"Novice","description":"Flowing combo from swivel hips through baby cradle to full cradle.","tips":"Build momentum gradually through each move.","orderIndex":15,"score":3},{"id":55,"name":"Donkey Kick","level":"Novice","description":"Kicking legs up behind while hands touch the bed briefly.","tips":"Control the kick height and landing.","orderIndex":16,"score":1.5},{"id":18,"name":"Mute Grab","level":"Beginner","description":"Cross-body grab where you reach across to grab the opposite foot.","tips":"Twist slightly to reach across your body.","orderIndex":16,"score":0.8},{"id":19,"name":"Bum Drop","level":"Beginner","description":"Landing in a seated position with legs straight out in front.","tips":"Land with palms down by your hips, fingers pointing forward.","orderIndex":17,"score":0.9},{"id":56,"name":"Bum to Donkey Kick x3","level":"Novice","description":"Bum drop into three consecutive donkey kicks.","tips":"Build rhythm and consistency.","orderIndex":17,"score":1.5},{"id":20,"name":"Dog Drop","level":"Beginner","description":"Landing on hands and knees simultaneously.","tips":"Maintain a flat back and distribute weight evenly.","orderIndex":18,"score":0.7},{"id":57,"name":"Bum to Donkey Kick to Swivel x3","level":"Novice","description":"Bum drop to donkey kick to swivel hips, repeated three times.","tips":"Flow between movements smoothly.","orderIndex":18,"score":1.5},{"id":58,"name":"Bum to Dog Front Flip","level":"Novice","description":"Bum drop launching into front flip landing on hands and knees.","tips":"Use the bounce to initiate rotation.","orderIndex":19,"score":3.5},{"id":21,"name":"Back Drop","level":"Beginner","description":"Landing flat on your back with chin tucked to chest.","tips":"Chin to chest. Land on the middle of your back, not your neck.","orderIndex":19,"score":0.9},{"id":22,"name":"Stomach Drop","level":"Beginner","description":"Landing flat on your stomach with arms creating a diamond shape.","tips":"Create a diamond shape with hands under face. Keep core engaged.","orderIndex":20,"score":0.9},{"id":59,"name":"Front Flip to Bum to Dog Front","level":"Novice","description":"Front flip to bum then another front flip to dog position.","tips":"Control each landing before the next move.","orderIndex":20,"score":3.5},{"id":60,"name":"Front Flip","level":"Novice","description":"Complete forward rotation in the air landing on feet.","tips":"Tuck tight, spot the landing. Must be on-axis.","orderIndex":21,"score":3.5},{"id":23,"name":"Bum Drop Rebounds","level":"Beginner","description":"Bum drop returning to feet with controlled bouncing.","tips":"Push through your hands and engage core to stand back up.","orderIndex":21,"score":0.9},{"id":61,"name":"Back Somersault","level":"Novice","description":"Rolling backward while seated or from back position.","tips":"Tuck chin and roll smoothly.","orderIndex":22,"score":2.5},{"id":24,"name":"Dog Drop Rebounds","level":"Beginner","description":"Dog drop returning to feet with controlled bouncing.","tips":"Push off evenly with hands and knees.","orderIndex":22,"score":0.7},{"id":62,"name":"Back Pullover","level":"Novice","description":"Pulling over backward from a back drop position.","tips":"Use momentum from the back drop.","orderIndex":23,"score":2.8},{"id":25,"name":"Back Drop Rebounds (needles)","level":"Beginner","description":"Back drop returning to feet with controlled bouncing.","tips":"Kick legs up and use momentum to rock back to feet.","orderIndex":23,"score":0.9},{"id":26,"name":"Stomach Drop Rebounds","level":"Beginner","description":"Stomach drop returning to feet with controlled bouncing.","tips":"Push off the mat with your hands to help the upward momentum.","orderIndex":24,"score":0.9},{"id":63,"name":"Backflip Set (Hips Up)","level":"Novice","description":"Setting up for backflip by driving hips upward.","tips":"Focus on the hip drive, not the head throw.","orderIndex":24,"score":3.8},{"id":64,"name":"Backflip Set to Pullover","level":"Novice","description":"Backflip set transitioning into a pullover.","tips":"Control the set before pulling over.","orderIndex":25,"score":3.8},{"id":27,"name":"180 to Bum","level":"Beginner","description":"180 spin landing in bum drop position.","tips":"Complete the spin before preparing for the drop.","orderIndex":25,"score":1.3},{"id":28,"name":"180 to Dog","level":"Beginner","description":"180 spin landing in dog drop position.","tips":"Spot your landing as you complete the spin.","orderIndex":26,"score":1.4},{"id":65,"name":"Backflip","level":"Novice","description":"Complete backward rotation in the air landing on feet.","tips":"Drive hips up, tuck tight, spot landing.","orderIndex":26,"score":3.8},{"id":29,"name":"180 to Back","level":"Beginner","description":"180 spin landing in back drop position.","tips":"Tuck chin as you prepare to land on back.","orderIndex":27,"score":1.5},{"id":4,"name":"Tuck Jump","level":"Novice","description":"Pulling knees to chest at the peak of the jump.","tips":"Bring knees to chest, not chest to knees. Grab your shins briefly.","orderIndex":27,"score":2},{"id":30,"name":"180 to Stomach","level":"Beginner","description":"180 spin landing in stomach drop position.","tips":"Arms ready in diamond position before landing.","orderIndex":28,"score":1.6},{"id":98,"name":"backpullover to stum","level":"Novice","description":"pullover to stum","tips":"...","orderIndex":28,"score":2},{"id":31,"name":"Bum 180","level":"Beginner","description":"Bum drop with 180 spin to feet.","tips":"Push hips up and twist at the peak of the bounce.","orderIndex":29,"score":1.6},{"id":116,"name":"180 too bum","level":"Novice","description":"…","tips":"…","orderIndex":29,"score":2},{"id":32,"name":"Dog 180","level":"Beginner","description":"Dog drop with 180 spin to feet.","tips":"Push off evenly and initiate spin from shoulders.","orderIndex":30,"score":1.7},{"id":117,"name":"180 to dog","level":"Novice","description":"…","tips":"…","orderIndex":30,"score":2},{"id":118,"name":"180 too stomach","level":"Novice","description":"…","tips":"…","orderIndex":31,"score":2},{"id":33,"name":"Back 180","level":"Beginner","description":"Back drop with 180 spin to feet.","tips":"Drive one shoulder forward to initiate the twist.","orderIndex":31,"score":1.8},{"id":119,"name":"180 too back","level":"Novice","description":"…","tips":"…","orderIndex":32,"score":2},{"id":34,"name":"Stomach 180","level":"Beginner","description":"Stomach drop with 180 spin to feet.","tips":"Look over your shoulder and twist through your core.","orderIndex":32,"score":1.9},{"id":35,"name":"Swivel Hips","level":"Beginner","description":"Bum drop, half twist, land in bum drop facing opposite direction.","tips":"Push hips up and twist at the peak of the bounce.","orderIndex":33,"score":1.1},{"id":120,"name":"360 too bum","level":"Novice","description":"…","tips":"…","orderIndex":33,"score":2},{"id":121,"name":"360 too back","level":"Novice","description":"…","tips":"…","orderIndex":34,"score":2},{"id":36,"name":"Back to Bum to Dog to Stomach","level":"Beginner","description":"Combo sequence: back drop, bum drop, dog drop, stomach drop.","tips":"Flow smoothly between positions without stopping.","orderIndex":34,"score":1.5},{"id":37,"name":"Stomach to Dog to Bum to Back","level":"Beginner","description":"Combo sequence: stomach drop, dog drop, bum drop, back drop.","tips":"Maintain rhythm and control throughout.","orderIndex":35,"score":1.5},{"id":122,"name":"Turntable 180","level":"Novice","description":"…","tips":"…","orderIndex":35,"score":2},{"id":38,"name":"Seat Roller","level":"Beginner","description":"Rolling from bum through back and around to bum again.","tips":"Keep momentum controlled and body tight during the roll.","orderIndex":36,"score":1},{"id":123,"name":"Back pull over too bum","level":"Novice","description":"…","tips":"…","orderIndex":36,"score":2},{"id":124,"name":"Back pull over too dog","level":"Novice","description":"…","tips":"…","orderIndex":37,"score":2},{"id":125,"name":"Back pull over to back","level":"Novice","description":"..","tips":"..","orderIndex":38,"score":2},{"id":126,"name":"Backflip","level":"Novice","description":"..","tips":"..","orderIndex":39,"score":2.8}]
+[
+  {
+    "id": 76,
+    "name": "Barani",
+    "level": "Advanced",
+    "description": "A front flip with a half twist.",
+    "tips": "Initiate the front flip first, then twist late. Spot the landing.",
+    "orderIndex": 0,
+    "score": 4.5
+  },
+  {
+    "id": 39,
+    "name": "450 Spin",
+    "level": "Novice",
+    "description": "A 450-degree rotation (1.25 turns) in the air.",
+    "tips": "Keep body tight and spot landing early.",
+    "orderIndex": 0,
+    "score": 2.5
+  },
+  {
+    "id": 6,
+    "name": "A's & I's",
+    "level": "Beginner",
+    "description": "Alternating between A shape (arms/legs out) and I shape (straight body).",
+    "tips": "Focus on crisp transitions between shapes at the peak.",
+    "orderIndex": 0,
+    "score": 0.8
+  },
+  {
+    "id": 72,
+    "name": "Layout Back",
+    "level": "Intermediate",
+    "description": "A back flip with a layedout possition",
+    "tips": "Keep it relaxed but maintain spatial awareness.",
+    "orderIndex": 0,
+    "score": 4
+  },
+  {
+    "id": 86,
+    "name": "Double Back",
+    "level": "Elite",
+    "description": "Two complete backward rotations in one jump.",
+    "tips": "Requires significant height. Tuck very tight and hold longer than you think.",
+    "orderIndex": 0,
+    "score": 7.5
+  },
+  {
+    "id": 40,
+    "name": "540 Spin",
+    "level": "Novice",
+    "description": "A 540-degree rotation (1.5 turns) in the air.",
+    "tips": "Strong arm pull and core engagement for the extra rotation.",
+    "orderIndex": 1,
+    "score": 3
+  },
+  {
+    "id": 96,
+    "name": "Tuck jump",
+    "level": "Beginner",
+    "description": "Tuck jump",
+    "tips": "Grab knees",
+    "orderIndex": 1,
+    "score": 0.4
+  },
+  {
+    "id": 87,
+    "name": "Fliffus",
+    "level": "Elite",
+    "description": "Double front flip with a half twist.",
+    "tips": "Advanced spatial awareness required. Twist usually happens in the second flip.",
+    "orderIndex": 1,
+    "score": 7.5
+  },
+  {
+    "id": 77,
+    "name": "Cody",
+    "level": "Advanced",
+    "description": "A back flip performed from a front drop landing.",
+    "tips": "Snap legs down hard from the front drop to generate rotation.",
+    "orderIndex": 1,
+    "score": 4.5
+  },
+  {
+    "id": 71,
+    "name": "Layout Front",
+    "level": "Intermediate",
+    "description": "A front flip performed with an open, straight body position.",
+    "tips": "Wait until the peak to rotate and stay hollow.",
+    "orderIndex": 1,
+    "score": 4
+  },
+  {
+    "id": 78,
+    "name": "Ball Out",
+    "level": "Advanced",
+    "description": "A front flip performed from a back drop landing.",
+    "tips": "Drive knees over head immediately upon rebounding from back.",
+    "orderIndex": 2,
+    "score": 4.5
+  },
+  {
+    "id": 97,
+    "name": "Backflip 180",
+    "level": "Intermediate",
+    "description": "backflip with 180",
+    "tips": "...",
+    "orderIndex": 2,
+    "score": 3.8
+  },
+  {
+    "id": 41,
+    "name": "Oppo 450",
+    "level": "Novice",
+    "description": "A 450-degree rotation in the opposite direction.",
+    "tips": "Practice both directions for balance.",
+    "orderIndex": 2,
+    "score": 2.5
+  },
+  {
+    "id": 88,
+    "name": "Triffus",
+    "level": "Elite",
+    "description": "Triple front flip with a half twist.",
+    "tips": "Expert level only. Requires immense height and rotational speed.",
+    "orderIndex": 2,
+    "score": 9.5
+  },
+  {
+    "id": 2,
+    "name": "Star Jump",
+    "level": "Beginner",
+    "description": "Legs and arms spread wide in a star shape at the peak of the jump.",
+    "tips": "Keep limbs straight and spread evenly. Toes and fingers pointed.",
+    "orderIndex": 2,
+    "score": 0.4
+  },
+  {
+    "id": 103,
+    "name": "Kaboom",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 3,
+    "score": 3
+  },
+  {
+    "id": 79,
+    "name": "Full Twist Flip",
+    "level": "Advanced",
+    "description": "A back flip with a full 360-degree rotation.",
+    "tips": "Wrap arms tight to chest to increase spin speed.",
+    "orderIndex": 3,
+    "score": 4.5
+  },
+  {
+    "id": 3,
+    "name": "Pike Jump",
+    "level": "Beginner",
+    "description": "Legs straight out in front, parallel to the mat, touching toes.",
+    "tips": "Keep your legs locked and reach for your toes at the apex.",
+    "orderIndex": 3,
+    "score": 0.5
+  },
+  {
+    "id": 89,
+    "name": "Full Out",
+    "level": "Elite",
+    "description": "Double back flip with a full twist in the second flip.",
+    "tips": "Tuck for the first flip, then open and twist for the second.",
+    "orderIndex": 3,
+    "score": 8
+  },
+  {
+    "id": 42,
+    "name": "Oppo 540",
+    "level": "Novice",
+    "description": "A 540-degree rotation in the opposite direction.",
+    "tips": "Maintain body tension throughout.",
+    "orderIndex": 3,
+    "score": 3
+  },
+  {
+    "id": 90,
+    "name": "Miller",
+    "level": "Elite",
+    "description": "A triple twisting double backflip.",
+    "tips": "Extremely high difficulty. Maintain tight core for maximum spin.",
+    "orderIndex": 4,
+    "score": 8.5
+  },
+  {
+    "id": 80,
+    "name": "Arabian",
+    "level": "Advanced",
+    "description": "A half twist into a back flip (visually a front flip from a back set).",
+    "tips": "Twist early and see the bed as you go into the flip.",
+    "orderIndex": 4,
+    "score": 4.5
+  },
+  {
+    "id": 43,
+    "name": "Seatbelt Grab",
+    "level": "Novice",
+    "description": "Reaching across body to grab opposite side like a seatbelt.",
+    "tips": "Must be controlled jump grab, no off-axis.",
+    "orderIndex": 4,
+    "score": 1
+  },
+  {
+    "id": 104,
+    "name": "Zach",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 4,
+    "score": 3
+  },
+  {
+    "id": 5,
+    "name": "Straddle Jump",
+    "level": "Beginner",
+    "description": "Legs spread wide to the sides, touching toes.",
+    "tips": "Keep legs straight and toes pointed. Try to get legs parallel to the mat.",
+    "orderIndex": 4,
+    "score": 0.5
+  },
+  {
+    "id": 105,
+    "name": "Corkscrew",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 5,
+    "score": 3
+  },
+  {
+    "id": 44,
+    "name": "Double Seatbelt",
+    "level": "Novice",
+    "description": "Both hands reaching across body in seatbelt position.",
+    "tips": "Keep balance centered during the grab.",
+    "orderIndex": 5,
+    "score": 1.2
+  },
+  {
+    "id": 7,
+    "name": "90 Spin",
+    "level": "Beginner",
+    "description": "A 90-degree rotation in the air, landing facing sideways.",
+    "tips": "Turn your shoulders slightly and spot where you want to land.",
+    "orderIndex": 5,
+    "score": 1
+  },
+  {
+    "id": 91,
+    "name": "Quad Back",
+    "level": "Elite",
+    "description": "Four complete backward rotations.",
+    "tips": "Bordering on impossible. Requires world-class height.",
+    "orderIndex": 5,
+    "score": 10
+  },
+  {
+    "id": 81,
+    "name": "Side Flip",
+    "level": "Advanced",
+    "description": "Rotation around the frontal axis.",
+    "tips": "Throw your leading arm down and stay tucked sideways.",
+    "orderIndex": 5,
+    "score": 4.5
+  },
+  {
+    "id": 92,
+    "name": "Full In Back Out",
+    "level": "Elite",
+    "description": "Double back flip with a full twist in the first flip.",
+    "tips": "Twist hard and early, then hold the tuck for the second flip.",
+    "orderIndex": 6,
+    "score": 8
+  },
+  {
+    "id": 8,
+    "name": "180 Spin",
+    "level": "Beginner",
+    "description": "A 180-degree rotation in the air landing facing the opposite direction.",
+    "tips": "Turn your shoulders and look where you want to land.",
+    "orderIndex": 6,
+    "score": 1.6
+  },
+  {
+    "id": 45,
+    "name": "Nose Grab",
+    "level": "Novice",
+    "description": "Grabbing the front/nose of your body position in the air.",
+    "tips": "Reach forward and grab at the peak.",
+    "orderIndex": 6,
+    "score": 1
+  },
+  {
+    "id": 106,
+    "name": "Layout backflip",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 6,
+    "score": 4.1
+  },
+  {
+    "id": 82,
+    "name": "Kaboom",
+    "level": "Advanced",
+    "description": "A flip generated by a delayed leg snap after landing on the back.",
+    "tips": "Wait for the bounce to start before snapping your heels.",
+    "orderIndex": 6,
+    "score": 4.2
+  },
+  {
+    "id": 107,
+    "name": "Frountflip 180",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 7,
+    "score": 3.7
+  },
+  {
+    "id": 46,
+    "name": "Double Nose Grab",
+    "level": "Novice",
+    "description": "Both hands grabbing forward in nose position.",
+    "tips": "Maintain control and height.",
+    "orderIndex": 7,
+    "score": 1.2
+  },
+  {
+    "id": 93,
+    "name": "Double Cody",
+    "level": "Elite",
+    "description": "Two back flips from a single front drop landing.",
+    "tips": "Massive leg power required to generate double rotation from the bed.",
+    "orderIndex": 7,
+    "score": 8.2
+  },
+  {
+    "id": 83,
+    "name": "Rudolph (Rudy)",
+    "level": "Advanced",
+    "description": "A front flip with 1.5 twists.",
+    "tips": "Maintain a tight layout or slight pike to facilitate the extra half twist.",
+    "orderIndex": 7,
+    "score": 4.5
+  },
+  {
+    "id": 9,
+    "name": "270 Spin",
+    "level": "Beginner",
+    "description": "A 270-degree rotation in the air.",
+    "tips": "Commit to the turn and keep your body tight throughout.",
+    "orderIndex": 7,
+    "score": 1.6
+  },
+  {
+    "id": 10,
+    "name": "360 Spin",
+    "level": "Beginner",
+    "description": "A complete 360-degree rotation in the air while maintaining a straight body.",
+    "tips": "Keep your body tight like a pencil to spin faster.",
+    "orderIndex": 8,
+    "score": 2
+  },
+  {
+    "id": 47,
+    "name": "Bum to Stomach",
+    "level": "Novice",
+    "description": "Transitioning from bum drop directly to stomach drop.",
+    "tips": "Use the bounce to rotate forward.",
+    "orderIndex": 8,
+    "score": 2
+  },
+  {
+    "id": 108,
+    "name": "Misty 5",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 8,
+    "score": 3
+  },
+  {
+    "id": 84,
+    "name": "Randolph (Randy)",
+    "level": "Advanced",
+    "description": "A front flip with 2.5 twists.",
+    "tips": "Incredible core strength needed to maintain rotation speed.",
+    "orderIndex": 8,
+    "score": 4.5
+  },
+  {
+    "id": 94,
+    "name": "Triple Back",
+    "level": "Elite",
+    "description": "Three complete backward rotations in one jump.",
+    "tips": "Extremely dangerous. Elite training and massive airtime required.",
+    "orderIndex": 8,
+    "score": 9.5
+  },
+  {
+    "id": 11,
+    "name": "Oppo 90",
+    "level": "Beginner",
+    "description": "A 90-degree rotation in the opposite direction.",
+    "tips": "Practice spinning both ways for balance and control.",
+    "orderIndex": 9,
+    "score": 1.3
+  },
+  {
+    "id": 109,
+    "name": "Backflip 180",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 9,
+    "score": 3.7
+  },
+  {
+    "id": 48,
+    "name": "Stomach to Bum",
+    "level": "Novice",
+    "description": "Transitioning from stomach drop directly to bum drop.",
+    "tips": "Push up and rotate backward.",
+    "orderIndex": 9,
+    "score": 2
+  },
+  {
+    "id": 85,
+    "name": "Double Front Flip",
+    "level": "Advanced",
+    "description": "Two complete forward rotations in the air.",
+    "tips": "Tuck extremely tight and keep eyes open for the second rotation.",
+    "orderIndex": 9,
+    "score": 4.5
+  },
+  {
+    "id": 95,
+    "name": "Adolph",
+    "level": "Elite",
+    "description": "A front flip with 3.5 twists.",
+    "tips": "The peak of twisting difficulty. Perfect body alignment is mandatory.",
+    "orderIndex": 9,
+    "score": 8.8
+  },
+  {
+    "id": 110,
+    "name": "Frount full",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 10,
+    "score": 3.9
+  },
+  {
+    "id": 49,
+    "name": "Back to Stomach",
+    "level": "Novice",
+    "description": "Transitioning from back drop directly to stomach drop.",
+    "tips": "Roll through the rotation smoothly.",
+    "orderIndex": 10,
+    "score": 2.1
+  },
+  {
+    "id": 1,
+    "name": "Stop Bounce",
+    "level": "Advanced",
+    "description": "Safely killing the bounce by absorbing energy through bent knees.",
+    "tips": "The most important safety skill. Bend knees on landing to absorb.",
+    "orderIndex": 10,
+    "score": 0.3
+  },
+  {
+    "id": 12,
+    "name": "Oppo 180",
+    "level": "Beginner",
+    "description": "A 180-degree rotation in the opposite direction.",
+    "tips": "Spot your landing and keep core engaged.",
+    "orderIndex": 10,
+    "score": 1.3
+  },
+  {
+    "id": 13,
+    "name": "Oppo 270",
+    "level": "Beginner",
+    "description": "A 270-degree rotation in the opposite direction.",
+    "tips": "Maintain body tension throughout the spin.",
+    "orderIndex": 11,
+    "score": 1.6
+  },
+  {
+    "id": 99,
+    "name": "540 swivel hip",
+    "level": "Advanced",
+    "description": "540 swivel hip",
+    "tips": "fsdgfsd",
+    "orderIndex": 11,
+    "score": 5
+  },
+  {
+    "id": 50,
+    "name": "Stomach to Back",
+    "level": "Novice",
+    "description": "Transitioning from stomach drop directly to back drop.",
+    "tips": "Push and rotate backward to back.",
+    "orderIndex": 11,
+    "score": 2.1
+  },
+  {
+    "id": 111,
+    "name": "Back full",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 11,
+    "score": 3.9
+  },
+  {
+    "id": 112,
+    "name": "Cork 7",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 12,
+    "score": 3
+  },
+  {
+    "id": 100,
+    "name": "Barani to Front Flip",
+    "level": "Advanced",
+    "description": "Barani immediately into front flip.",
+    "tips": "Maintain momentum through both.",
+    "orderIndex": 12,
+    "score": 6.8
+  },
+  {
+    "id": 51,
+    "name": "Baby Cradle",
+    "level": "Novice",
+    "description": "Partial cradle with controlled rotation from back to back.",
+    "tips": "Partial control, building to full cradle.",
+    "orderIndex": 12,
+    "score": 2.6
+  },
+  {
+    "id": 14,
+    "name": "Oppo 360",
+    "level": "Beginner",
+    "description": "A complete 360-degree rotation in the opposite direction.",
+    "tips": "Keep arms tight and core engaged for faster rotation.",
+    "orderIndex": 12,
+    "score": 2
+  },
+  {
+    "id": 15,
+    "name": "Safety Grab",
+    "level": "Beginner",
+    "description": "Grabbing the bed with both hands while in the air.",
+    "tips": "Must be jump grabs, not off-axis or rushed.",
+    "orderIndex": 13,
+    "score": 0.7
+  },
+  {
+    "id": 52,
+    "name": "Cradle",
+    "level": "Novice",
+    "description": "Full back drop to half twist to back drop facing opposite direction.",
+    "tips": "Clean full extension through the twist.",
+    "orderIndex": 13,
+    "score": 2.6
+  },
+  {
+    "id": 113,
+    "name": "Backflip 540",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 13,
+    "score": 3.7
+  },
+  {
+    "id": 101,
+    "name": "Frontflip 720",
+    "level": "Advanced",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 13,
+    "score": 6
+  },
+  {
+    "id": 102,
+    "name": "Backflip 720",
+    "level": "Advanced",
+    "description": ".",
+    "tips": ".",
+    "orderIndex": 14,
+    "score": 6
+  },
+  {
+    "id": 114,
+    "name": "Rudy (front flip 540)",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 14,
+    "score": 3.7
+  },
+  {
+    "id": 53,
+    "name": "Swivel Hips to Seat Roller",
+    "level": "Novice",
+    "description": "Swivel hips flowing directly into a seat roller.",
+    "tips": "Smooth transition, not rushed.",
+    "orderIndex": 14,
+    "score": 2
+  },
+  {
+    "id": 16,
+    "name": "Double Safety",
+    "level": "Beginner",
+    "description": "Two handed grab of the trampoline bed during a jump.",
+    "tips": "Control your height and grab timing.",
+    "orderIndex": 14,
+    "score": 0.8
+  },
+  {
+    "id": 115,
+    "name": "Sideflip",
+    "level": "Intermediate",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 15,
+    "score": 3.7
+  },
+  {
+    "id": 17,
+    "name": "Japan Grab",
+    "level": "Beginner",
+    "description": "Grabbing the outside of your foot behind your body.",
+    "tips": "Reach behind and grab firmly at the peak.",
+    "orderIndex": 15,
+    "score": 0.8
+  },
+  {
+    "id": 54,
+    "name": "Swivel Hips to Baby Cradle to Cradle",
+    "level": "Novice",
+    "description": "Flowing combo from swivel hips through baby cradle to full cradle.",
+    "tips": "Build momentum gradually through each move.",
+    "orderIndex": 15,
+    "score": 3
+  },
+  {
+    "id": 55,
+    "name": "Donkey Kick",
+    "level": "Novice",
+    "description": "Kicking legs up behind while hands touch the bed briefly.",
+    "tips": "Control the kick height and landing.",
+    "orderIndex": 16,
+    "score": 1.5
+  },
+  {
+    "id": 18,
+    "name": "Mute Grab",
+    "level": "Beginner",
+    "description": "Cross-body grab where you reach across to grab the opposite foot.",
+    "tips": "Twist slightly to reach across your body.",
+    "orderIndex": 16,
+    "score": 0.8
+  },
+  {
+    "id": 19,
+    "name": "Bum Drop",
+    "level": "Beginner",
+    "description": "Landing in a seated position with legs straight out in front.",
+    "tips": "Land with palms down by your hips, fingers pointing forward.",
+    "orderIndex": 17,
+    "score": 0.9
+  },
+  {
+    "id": 56,
+    "name": "Bum to Donkey Kick x3",
+    "level": "Novice",
+    "description": "Bum drop into three consecutive donkey kicks.",
+    "tips": "Build rhythm and consistency.",
+    "orderIndex": 17,
+    "score": 1.5
+  },
+  {
+    "id": 20,
+    "name": "Dog Drop",
+    "level": "Beginner",
+    "description": "Landing on hands and knees simultaneously.",
+    "tips": "Maintain a flat back and distribute weight evenly.",
+    "orderIndex": 18,
+    "score": 0.7
+  },
+  {
+    "id": 57,
+    "name": "Bum to Donkey Kick to Swivel x3",
+    "level": "Novice",
+    "description": "Bum drop to donkey kick to swivel hips, repeated three times.",
+    "tips": "Flow between movements smoothly.",
+    "orderIndex": 18,
+    "score": 1.5
+  },
+  {
+    "id": 58,
+    "name": "Bum to Dog Front Flip",
+    "level": "Novice",
+    "description": "Bum drop launching into front flip landing on hands and knees.",
+    "tips": "Use the bounce to initiate rotation.",
+    "orderIndex": 19,
+    "score": 3.5
+  },
+  {
+    "id": 21,
+    "name": "Back Drop",
+    "level": "Beginner",
+    "description": "Landing flat on your back with chin tucked to chest.",
+    "tips": "Chin to chest. Land on the middle of your back, not your neck.",
+    "orderIndex": 19,
+    "score": 0.9
+  },
+  {
+    "id": 22,
+    "name": "Stomach Drop",
+    "level": "Beginner",
+    "description": "Landing flat on your stomach with arms creating a diamond shape.",
+    "tips": "Create a diamond shape with hands under face. Keep core engaged.",
+    "orderIndex": 20,
+    "score": 0.9
+  },
+  {
+    "id": 59,
+    "name": "Front Flip to Bum to Dog Front",
+    "level": "Novice",
+    "description": "Front flip to bum then another front flip to dog position.",
+    "tips": "Control each landing before the next move.",
+    "orderIndex": 20,
+    "score": 3.5
+  },
+  {
+    "id": 60,
+    "name": "Front Flip",
+    "level": "Novice",
+    "description": "Complete forward rotation in the air landing on feet.",
+    "tips": "Tuck tight, spot the landing. Must be on-axis.",
+    "orderIndex": 21,
+    "score": 3.5
+  },
+  {
+    "id": 23,
+    "name": "Bum Drop Rebounds",
+    "level": "Beginner",
+    "description": "Bum drop returning to feet with controlled bouncing.",
+    "tips": "Push through your hands and engage core to stand back up.",
+    "orderIndex": 21,
+    "score": 0.9
+  },
+  {
+    "id": 61,
+    "name": "Back Somersault",
+    "level": "Novice",
+    "description": "Rolling backward while seated or from back position.",
+    "tips": "Tuck chin and roll smoothly.",
+    "orderIndex": 22,
+    "score": 2.5
+  },
+  {
+    "id": 24,
+    "name": "Dog Drop Rebounds",
+    "level": "Beginner",
+    "description": "Dog drop returning to feet with controlled bouncing.",
+    "tips": "Push off evenly with hands and knees.",
+    "orderIndex": 22,
+    "score": 0.7
+  },
+  {
+    "id": 62,
+    "name": "Back Pullover",
+    "level": "Novice",
+    "description": "Pulling over backward from a back drop position.",
+    "tips": "Use momentum from the back drop.",
+    "orderIndex": 23,
+    "score": 2.8
+  },
+  {
+    "id": 25,
+    "name": "Back Drop Rebounds (needles)",
+    "level": "Beginner",
+    "description": "Back drop returning to feet with controlled bouncing.",
+    "tips": "Kick legs up and use momentum to rock back to feet.",
+    "orderIndex": 23,
+    "score": 0.9
+  },
+  {
+    "id": 26,
+    "name": "Stomach Drop Rebounds",
+    "level": "Beginner",
+    "description": "Stomach drop returning to feet with controlled bouncing.",
+    "tips": "Push off the mat with your hands to help the upward momentum.",
+    "orderIndex": 24,
+    "score": 0.9
+  },
+  {
+    "id": 63,
+    "name": "Backflip Set (Hips Up)",
+    "level": "Novice",
+    "description": "Setting up for backflip by driving hips upward.",
+    "tips": "Focus on the hip drive, not the head throw.",
+    "orderIndex": 24,
+    "score": 3.8
+  },
+  {
+    "id": 64,
+    "name": "Backflip Set to Pullover",
+    "level": "Novice",
+    "description": "Backflip set transitioning into a pullover.",
+    "tips": "Control the set before pulling over.",
+    "orderIndex": 25,
+    "score": 3.8
+  },
+  {
+    "id": 27,
+    "name": "180 to Bum",
+    "level": "Beginner",
+    "description": "180 spin landing in bum drop position.",
+    "tips": "Complete the spin before preparing for the drop.",
+    "orderIndex": 25,
+    "score": 1.3
+  },
+  {
+    "id": 28,
+    "name": "180 to Dog",
+    "level": "Beginner",
+    "description": "180 spin landing in dog drop position.",
+    "tips": "Spot your landing as you complete the spin.",
+    "orderIndex": 26,
+    "score": 1.4
+  },
+  {
+    "id": 65,
+    "name": "Backflip",
+    "level": "Novice",
+    "description": "Complete backward rotation in the air landing on feet.",
+    "tips": "Drive hips up, tuck tight, spot landing.",
+    "orderIndex": 26,
+    "score": 3.8
+  },
+  {
+    "id": 29,
+    "name": "180 to Back",
+    "level": "Beginner",
+    "description": "180 spin landing in back drop position.",
+    "tips": "Tuck chin as you prepare to land on back.",
+    "orderIndex": 27,
+    "score": 1.5
+  },
+  {
+    "id": 4,
+    "name": "Tuck Jump",
+    "level": "Novice",
+    "description": "Pulling knees to chest at the peak of the jump.",
+    "tips": "Bring knees to chest, not chest to knees. Grab your shins briefly.",
+    "orderIndex": 27,
+    "score": 2
+  },
+  {
+    "id": 30,
+    "name": "180 to Stomach",
+    "level": "Beginner",
+    "description": "180 spin landing in stomach drop position.",
+    "tips": "Arms ready in diamond position before landing.",
+    "orderIndex": 28,
+    "score": 1.6
+  },
+  {
+    "id": 98,
+    "name": "backpullover to stum",
+    "level": "Novice",
+    "description": "pullover to stum",
+    "tips": "...",
+    "orderIndex": 28,
+    "score": 2
+  },
+  {
+    "id": 31,
+    "name": "Bum 180",
+    "level": "Beginner",
+    "description": "Bum drop with 180 spin to feet.",
+    "tips": "Push hips up and twist at the peak of the bounce.",
+    "orderIndex": 29,
+    "score": 1.6
+  },
+  {
+    "id": 116,
+    "name": "180 too bum",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 29,
+    "score": 2
+  },
+  {
+    "id": 32,
+    "name": "Dog 180",
+    "level": "Beginner",
+    "description": "Dog drop with 180 spin to feet.",
+    "tips": "Push off evenly and initiate spin from shoulders.",
+    "orderIndex": 30,
+    "score": 1.7
+  },
+  {
+    "id": 117,
+    "name": "180 to dog",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 30,
+    "score": 2
+  },
+  {
+    "id": 118,
+    "name": "180 too stomach",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 31,
+    "score": 2
+  },
+  {
+    "id": 33,
+    "name": "Back 180",
+    "level": "Beginner",
+    "description": "Back drop with 180 spin to feet.",
+    "tips": "Drive one shoulder forward to initiate the twist.",
+    "orderIndex": 31,
+    "score": 1.8
+  },
+  {
+    "id": 119,
+    "name": "180 too back",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 32,
+    "score": 2
+  },
+  {
+    "id": 34,
+    "name": "Stomach 180",
+    "level": "Beginner",
+    "description": "Stomach drop with 180 spin to feet.",
+    "tips": "Look over your shoulder and twist through your core.",
+    "orderIndex": 32,
+    "score": 1.9
+  },
+  {
+    "id": 35,
+    "name": "Swivel Hips",
+    "level": "Beginner",
+    "description": "Bum drop, half twist, land in bum drop facing opposite direction.",
+    "tips": "Push hips up and twist at the peak of the bounce.",
+    "orderIndex": 33,
+    "score": 1.1
+  },
+  {
+    "id": 120,
+    "name": "360 too bum",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 33,
+    "score": 2
+  },
+  {
+    "id": 121,
+    "name": "360 too back",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 34,
+    "score": 2
+  },
+  {
+    "id": 36,
+    "name": "Back to Bum to Dog to Stomach",
+    "level": "Beginner",
+    "description": "Combo sequence: back drop, bum drop, dog drop, stomach drop.",
+    "tips": "Flow smoothly between positions without stopping.",
+    "orderIndex": 34,
+    "score": 1.5
+  },
+  {
+    "id": 37,
+    "name": "Stomach to Dog to Bum to Back",
+    "level": "Beginner",
+    "description": "Combo sequence: stomach drop, dog drop, bum drop, back drop.",
+    "tips": "Maintain rhythm and control throughout.",
+    "orderIndex": 35,
+    "score": 1.5
+  },
+  {
+    "id": 122,
+    "name": "Turntable 180",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 35,
+    "score": 2
+  },
+  {
+    "id": 38,
+    "name": "Seat Roller",
+    "level": "Beginner",
+    "description": "Rolling from bum through back and around to bum again.",
+    "tips": "Keep momentum controlled and body tight during the roll.",
+    "orderIndex": 36,
+    "score": 1
+  },
+  {
+    "id": 123,
+    "name": "Back pull over too bum",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 36,
+    "score": 2
+  },
+  {
+    "id": 124,
+    "name": "Back pull over too dog",
+    "level": "Novice",
+    "description": "…",
+    "tips": "…",
+    "orderIndex": 37,
+    "score": 2
+  },
+  {
+    "id": 125,
+    "name": "Back pull over to back",
+    "level": "Novice",
+    "description": "..",
+    "tips": "..",
+    "orderIndex": 38,
+    "score": 2
+  },
+  {
+    "id": 126,
+    "name": "Backflip",
+    "level": "Novice",
+    "description": "..",
+    "tips": "..",
+    "orderIndex": 39,
+    "score": 2.8
+  }
+]
